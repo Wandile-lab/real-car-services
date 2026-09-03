@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Car Services - Premium Experience</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brandGreen: '#4d5d36', 
+                        brandGreenDark: '#364225',
+                        brandOrange: '#f37500', 
+                        brandOrangeLight: '#ff8c24',
+                        lightGray: '#f8fafc'
+                    },
+                    boxShadow: {
+                        'fancy': '0 20px 40px -15px rgba(243, 117, 0, 0.15)',
+                        'glow': '0 0 20px rgba(243, 117, 0, 0.4)'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom scrollbar and sleek details */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #4d5d36; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f37500; }
+        
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(to right, #4d5d36, #f37500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800 bg-lightGray selection:bg-brandOrange selection:text-white">
+
+    <!-- Top Bar -->
+    <div class="bg-brandGreenDark text-xs text-gray-300 py-2 hidden md:block border-b border-brandGreen">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <span><i class="far fa-clock text-brandOrange mr-1"></i> Mon - Sat: 7:00am - 5:00pm</span>
+                <span><i class="fas fa-map-marker-alt text-brandOrange mr-1"></i> 369 Paul Kruger Street, Capital Park, Pretoria. 0084</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-brandOrange transition duration-300"><i class="fab fa-whatsapp text-lg"></i></a>
+                <a href="#" class="hover:text-brandOrange transition duration-300"><i class="fab fa-facebook-f text-lg"></i></a>
+                <a href="#" class="hover:text-brandOrange transition duration-300"><i class="fab fa-linkedin-in text-lg"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation (Glassmorphism) -->
+    <nav class="glass-nav shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brandGreen to-brandOrange flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-car-side text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold text-brandGreen uppercase tracking-tight">Real Car <span class="text-brandOrange">Services</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 font-semibold text-brandGreen">
+                <a href="#" class="hover:text-brandOrange transition duration-300 relative group">
+                    Home
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandOrange transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#services" class="hover:text-brandOrange transition duration-300 relative group">
+                    Services
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandOrange transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#why-us" class="hover:text-brandOrange transition duration-300 relative group">
+                    Why Us
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brandOrange transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="tel:0120065716" class="bg-brandOrange text-white px-6 py-2.5 rounded-full shadow-lg shadow-orange-500/30 hover:-translate-y-1 hover:shadow-orange-500/50 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-phone-alt animate-pulse"></i> 012 006 5716
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-brandGreen text-white overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-brandGreenDark to-brandGreen/80 z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center bg-fixed transform scale-105"></div>
+        
+        <!-- Decorative blob -->
+        <div class="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 rounded-full bg-brandOrange opacity-20 blur-3xl z-10 animate-pulse-slow"></div>
+
+        <div class="container mx-auto px-6 py-32 md:py-40 relative z-20">
+            <span class="inline-block py-1 px-3 rounded-full bg-brandOrange/20 text-brandOrange font-bold text-sm tracking-wider uppercase mb-4 border border-brandOrange/30 backdrop-blur-sm">
+                Top Rated Mechanics in PTA
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-3xl drop-shadow-lg">
+                Affordable & Reliable Car <span class="text-brandOrange">Maintenance</span> Near You.
+            </h1>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl text-gray-200 font-light leading-relaxed">
+                Welcome to Real Car Services. Your go-to destination for affordable and reliable car maintenance. Don't wait any longer, call now and experience the difference!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#quote" class="bg-brandOrange hover:bg-brandOrangeLight text-white font-bold py-4 px-8 rounded-full shadow-glow transition-all duration-300 transform hover:-translate-y-1 text-center">
+                    Request a Free Quote <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#services" class="bg-white/10 hover:bg-white/20 border border-white/30 backdrop-blur-md text-white font-bold py-4 px-8 rounded-full transition-all duration-300 text-center">
+                    Explore Services
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <!-- Image Composition -->
+                <div class="w-full lg:w-1/2 relative">
+                    <div class="absolute inset-0 bg-brandOrange rounded-3xl transform rotate-3 scale-105 opacity-20 z-0"></div>
+                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Professional Mechanic" class="rounded-3xl shadow-2xl relative z-10 w-full h-[500px] object-cover">
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl z-20 animate-float border-t-4 border-brandOrange">
+                        <div class="flex items-center gap-4">
+                            <div class="text-brandOrange text-4xl"><i class="fas fa-award"></i></div>
+                            <div>
+                                <h4 class="font-extrabold text-2xl text-brandGreen">15+</h4>
+                                <p class="text-gray-500 text-sm font-semibold uppercase">Years Experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="w-full lg:w-1/2">
+                    <h3 class="text-brandOrange font-bold tracking-widest uppercase mb-2 flex items-center gap-2">
+                        <span class="w-8 h-0.5 bg-brandOrange"></span> About Us
+                    </h3>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-brandGreen mb-6 leading-tight">
+                        Why Choose <span class="gradient-text">Us?</span>
+                    </h2>
+                    <p class="text-gray-600 text-lg mb-6 leading-relaxed font-light">
+                        We pride ourselves on being your trusted automotive partner. With our team of skilled mechanics, state-of-the-art diagnostics tools, and commitment to customer satisfaction, we ensure top-notch service every time. 
+                    </p>
+                    <p class="text-gray-600 text-lg mb-10 leading-relaxed font-light">
+                        We offer reliable and affordable car maintenance, repairs, and diagnostics, backed by years of experience. Our transparent approach, attention to detail, and personalized care set us apart.
+                    </p>
+                    <a href="#contact" class="bg-brandGreen hover:bg-brandGreenDark text-white font-bold py-4 px-10 rounded-full shadow-xl transition-all duration-300 inline-flex items-center gap-3 group">
+                        Contact Us <i class="fas fa-chevron-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-lightGray relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-brandOrange font-bold tracking-widest uppercase mb-2">Our Expertise</h3>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-brandGreen mb-6">Comprehensive Services</h2>
+                <p class="text-gray-500 text-lg">From routine check-ups to complex engine diagnostics, our skilled team ensures top-notch service for all your automotive needs.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- 1. Vehicle maintenance -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-car text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Vehicle maintenance</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">Trust Real Car Services for comprehensive vehicle maintenance that includes routine inspections, fluid checks, and filter replacements. Keep your vehicle running smoothly and extend its lifespan. Schedule your maintenance service today!</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Schedule Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 2. Vehicle service -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-oil-can text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Vehicle service</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">At Real Car Services, we offer top-notch vehicle servicing, including oil changes, tire rotations, and brake inspections. Ensure optimal performance and safety on the road. Book your service appointment now!</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Book Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 3. Vehicle repair -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-tools text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Vehicle repair</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">Our skilled technicians specialize in vehicle repairs, diagnosing and fixing various mechanical and electrical issues. Count on Real Car Services to get your vehicle back on the road in no time. Contact us for reliable repair solutions.</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Contact Us <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 4. Engine repairs -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-cogs text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Engine repairs</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">When it comes to engine repairs, trust we handle the job with precision and expertise. We diagnose and fix engine issues to restore performance and efficiency. Don’t let engine problems hold you back. Get a free quote.</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Get a free quote <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 5. Gearbox services -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-cog text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Gearbox services</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">Our gearbox services are designed to maintain the reliability and performance of your vehicle’s transmission. RCS ensures smooth shifting and prolonged gearbox life. Don’t overlook this critical component. Contact us</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Contact us <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 6. Brake system maintenance -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-dot-circle text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Brake system maintenance</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">RCS offers expert brake system maintenance to ensure optimal braking performance and safety. Our skilled technicians inspect, repair, and replace brake components as needed. Schedule your brake system maintenance today.</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Contact Us <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 7. Alternators -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-car-battery text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Alternators</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">Real Car Services is your trusted partner for alternator repair and replacement. We ensure the proper functioning of your vehicle’s electrical system. Don’t let a faulty alternator leave you stranded. Call us today!</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Contact us <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 8. Preventative Maintenance -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-shield-alt text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Preventative Maintenance</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">With our advanced car diagnostics tools, we accurately identify and troubleshoot problems with engine performance, electrical systems, and more. Get a comprehensive diagnosis from Real Car Services.</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Get a free quote <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- 9. Differential unit -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-fancy transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brandGreen opacity-5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-16 h-16 rounded-xl bg-brandGreen/10 flex items-center justify-center mb-6 group-hover:bg-brandOrange/10 transition-colors">
+                        <i class="fas fa-truck-pickup text-3xl text-brandGreen group-hover:text-brandOrange transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-brandGreen mb-3">Differential unit</h4>
+                    <p class="text-gray-500 mb-6 font-light leading-relaxed line-clamp-4">We specialize in differential unit services. Our experts ensure optimal power distribution and smooth operation. Don’t neglect this vital component. Let us take care of your differential unit. Book an appointment today!</p>
+                    <a href="#" class="text-brandOrange font-bold uppercase text-sm tracking-wider flex items-center gap-2 group-hover:gap-3 transition-all">
+                        Book Now <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Request a Quote -->
+    <section id="quote" class="py-24 bg-brandGreen relative overflow-hidden">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brandGreenDark rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brandOrange rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+
+        <div class="container mx-auto px-6 max-w-4xl relative z-10 text-center">
+            <h3 class="text-brandOrange font-bold tracking-widest uppercase mb-2">Get In Touch</h3>
+            <h2 class="text-4xl font-extrabold text-white mb-10">Request A Free Quote</h2>
+            
+            <div class="bg-white p-12 rounded-3xl shadow-2xl text-left">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Name *</label>
+                            <input type="text" class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-brandOrange transition-colors bg-transparent text-brandGreen font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Email *</label>
+                            <input type="email" class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-brandOrange transition-colors bg-transparent text-brandGreen font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Car Type</label>
+                            <input type="text" placeholder="e.g. BMW X5" class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-brandOrange transition-colors bg-transparent text-brandGreen font-medium placeholder-gray-300">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Car Problem</label>
+                            <input type="text" placeholder="e.g. Engine ticking" class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-brandOrange transition-colors bg-transparent text-brandGreen font-medium placeholder-gray-300">
+                        </div>
+                    </div>
+                    <div class="mb-10">
+                        <label class="block text-xs font-bold text-gray-400 uppercase tracking-wide mb-2">Message</label>
+                        <textarea rows="3" class="w-full border-b-2 border-gray-200 py-2 focus:outline-none focus:border-brandOrange transition-colors bg-transparent text-brandGreen font-medium resize-none"></textarea>
+                    </div>
+                    <button type="button" class="w-full md:w-auto bg-brandOrange hover:bg-brandOrangeLight text-white font-bold py-4 px-12 rounded-xl shadow-glow transition-all duration-300 transform hover:-translate-y-1">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Workshop Section -->
+    <section id="workshop" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h3 class="text-brandOrange font-bold tracking-widest uppercase mb-2 flex items-center gap-2">
+                <span class="w-8 h-0.5 bg-brandOrange"></span> Visit Us
+            </h3>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-brandGreen mb-12 leading-tight">
+                Our <span class="gradient-text">Workshop</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-lightGray rounded-3xl overflow-hidden shadow-lg border border-gray-100">
+                <!-- Contact Details -->
+                <div class="p-10 md:p-14 flex flex-col justify-center bg-white">
+                    <ul class="space-y-8">
+                        <li class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-brandGreen/10 flex items-center justify-center text-brandGreen group-hover:bg-brandOrange group-hover:text-white transition-all duration-300 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-400 uppercase tracking-wider text-sm mb-1">Address:</h4>
+                                <p class="text-brandGreen font-semibold text-lg leading-snug">369 Paul Kruger Street,<br>Capital Park, Pretoria. 0084</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-brandGreen/10 flex items-center justify-center text-brandGreen group-hover:bg-brandOrange group-hover:text-white transition-all duration-300 flex-shrink-0">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-400 uppercase tracking-wider text-sm mb-1">Phone:</h4>
+                                <p class="text-brandGreen font-semibold text-lg">012 006 5716</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-brandGreen/10 flex items-center justify-center text-brandGreen group-hover:bg-brandOrange group-hover:text-white transition-all duration-300 flex-shrink-0">
+                                <i class="fas fa-mobile-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-400 uppercase tracking-wider text-sm mb-1">Phone:</h4>
+                                <p class="text-brandGreen font-semibold text-lg">+27-65-818-4509</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 rounded-full bg-brandGreen/10 flex items-center justify-center text-brandGreen group-hover:bg-brandOrange group-hover:text-white transition-all duration-300 flex-shrink-0">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-400 uppercase tracking-wider text-sm mb-1">Email:</h4>
+                                <p class="text-brandGreen font-semibold text-lg break-all">repairs@realcarservices.co.za</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Map Placeholder -->
+                <div class="relative min-h-[400px] bg-gray-200">
+                    <iframe src="https://maps.google.com/maps?q=369%20Paul%20Kruger%20Street,%20Capital%20Park,%20Pretoria&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; position: absolute; top:0; left:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-10 border-t-4 border-brandOrange">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-extrabold text-white mb-6">Real Car <span class="text-brandOrange">Services</span></h2>
+            <p class="text-gray-400 max-w-lg mx-auto mb-8 font-light">Your trusted partner for all automotive maintenance and repair needs in Pretoria. Quality service you can rely on.</p>
+            <div class="flex justify-center gap-6 mb-12">
+                <a href="#" class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brandOrange hover:text-white transition-all transform hover:-translate-y-1"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brandOrange hover:text-white transition-all transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brandOrange hover:text-white transition-all transform hover:-translate-y-1"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-gray-500 text-sm flex flex-col md:flex-row justify-center items-center gap-2">
+                <p>&copy; 2026 Real Car Services. All Rights Reserved.</p>
+                <p>Built for business. Powered by <span class="font-semibold">Model Softwares</span>.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
