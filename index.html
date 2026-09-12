@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Real Car Services — Premium Car Maintenance in Pretoria</title>
-    <meta name="description" content="Real Car Services offers affordable, reliable car maintenance, repairs, and diagnostics in Pretoria. Serving Capital Park and surrounding areas. Call 012 006 5716.">
+    <meta name="description" content="Real Car Services offers affordable, reliable car maintenance, repairs, and diagnostics in Pretoria. Serving Capital Park and surrounding areas. Call 0658184509.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,6 +105,21 @@
                 rgba(54,66,37,0.80) 45%,
                 rgba(54,66,37,0.45) 100%
             );
+        }
+
+        /* ─── Hero ─── */
+        #hero {
+            position: relative;
+            background-image: url('images/header-image.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Fixed attachment = image stays still, content scrolls over it */
+            background-attachment: fixed;
+        }
+        /* On touch/mobile devices background-attachment:fixed is janky — fall back to scroll */
+        @media (max-width: 1023px) {
+            #hero { background-attachment: scroll; }
         }
 
         /* ─── Entrance animations ─── */
@@ -392,6 +407,256 @@
             outline: 2px solid #f37500;
             outline-offset: 3px;
         }
+
+        /* ─── Image animations ─── */
+        /* Zoom-reveal: images start slightly scaled up, fade+scale to normal */
+        .img-zoom {
+            overflow: hidden;
+        }
+        .img-zoom img {
+            transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.75s ease;
+            transform: scale(1.06);
+            filter: brightness(0.92);
+            will-change: transform;
+        }
+        .img-zoom.visible img,
+        .img-zoom.no-anim img {
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        /* Hover zoom on standalone images */
+        .img-hover-zoom {
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .img-hover-zoom img {
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.45s ease;
+            will-change: transform;
+        }
+        .img-hover-zoom:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.04) contrast(1.02);
+        }
+        /* Mosaic images — combine zoom-reveal + hover */
+        .mosaic-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+        .mosaic-img-wrap img {
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.5s ease;
+            transform: scale(1.07);
+            filter: brightness(0.88);
+            will-change: transform;
+        }
+        .mosaic-img-wrap.visible img {
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        .mosaic-img-wrap:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+        /* Why-choose-us image */
+        .why-img-wrap {
+            overflow: hidden;
+        }
+        .why-img-wrap img {
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1.05);
+            will-change: transform;
+        }
+        .why-img-wrap.visible img {
+            transform: scale(1);
+        }
+        .why-img-wrap:hover img {
+            transform: scale(1.03);
+        }
+        /* Workshop image */
+        .workshop-img-wrap img {
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.5s ease;
+            transform: scale(1.04);
+            filter: brightness(0.95);
+            will-change: transform;
+        }
+        .workshop-img-wrap.visible img {
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        .workshop-img-wrap:hover img {
+            transform: scale(1.03);
+        }
+
+        /* ─── Gallery ─── */
+        #gallery {
+            background: #0e0f0d;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+        }
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+            /* Featured items span 2 columns */
+            .gallery-item.featured {
+                grid-column: span 2;
+            }
+            .gallery-item.featured-row {
+                grid-row: span 2;
+            }
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #1a1a18;
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.5s ease;
+            transform: scale(1.08);
+            filter: brightness(0.85);
+            will-change: transform;
+            min-height: 200px;
+        }
+        .gallery-item.visible img {
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1.08) saturate(1.1);
+        }
+        /* Overlay on hover */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                transparent 50%,
+                rgba(54, 66, 37, 0.65) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        /* Hover reveal icon */
+        .gallery-item .gallery-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .gallery-item:hover .gallery-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .gallery-icon-inner {
+            width: 3rem;
+            height: 3rem;
+            border: 2px solid rgba(255,255,255,0.7);
+            background: rgba(243,117,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        /* Gallery heights */
+        .gallery-item { aspect-ratio: 4/3; }
+        .gallery-item.featured { aspect-ratio: unset; }
+        @media (min-width: 1024px) {
+            .gallery-item { min-height: 220px; }
+            .gallery-item.featured { min-height: 220px; }
+            .gallery-item.featured-row { min-height: 448px; }
+        }
+
+        /* ─── Lightbox ─── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+        #lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border: 1px solid rgba(255,255,255,0.08);
+            transform: scale(0.92);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        #lightbox.active img {
+            transform: scale(1);
+        }
+        #lightbox-close {
+            position: absolute;
+            top: 1.25rem; right: 1.5rem;
+            width: 2.5rem; height: 2.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        #lightbox-close:hover { background: rgba(243,117,0,0.4); }
+
+        /* ─── Reduced-motion: disable gallery + image animations ─── */
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-item img,
+            .mosaic-img-wrap img,
+            .why-img-wrap img,
+            .workshop-img-wrap img,
+            .img-zoom img,
+            .img-hover-zoom img {
+                transform: none !important;
+                filter: none !important;
+                transition: none !important;
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -452,11 +717,12 @@
                 <a href="#"       class="nav-link">Home</a>
                 <a href="#about"  class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
                 <a href="#faq"    class="nav-link">FAQ</a>
                 <a href="#workshop" class="nav-link">Contact</a>
-                <a href="tel:0120065716"
+                <a href="tel:0658184509"
                    class="btn-primary text-[0.75rem] py-2.5 px-5 ml-2">
-                    <i class="fas fa-phone-alt text-xs"></i> 012 006 5716
+                    <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                 </a>
             </div>
 
@@ -481,13 +747,15 @@
                    style="color:#4d5d36" onclick="closeMobileMenu()">About</a>
                 <a href="#services" class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
                    style="color:#4d5d36" onclick="closeMobileMenu()">Services</a>
+                <a href="#gallery"  class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
+                   style="color:#4d5d36" onclick="closeMobileMenu()">Gallery</a>
                 <a href="#faq"      class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
                    style="color:#4d5d36" onclick="closeMobileMenu()">FAQ</a>
                 <a href="#workshop" class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
                    style="color:#4d5d36" onclick="closeMobileMenu()">Contact</a>
                 <div class="pt-3 mt-1 border-t" style="border-color:rgba(0,0,0,0.06)">
-                    <a href="tel:0120065716" class="btn-primary w-full justify-center">
-                        <i class="fas fa-phone-alt text-xs"></i> 012 006 5716
+                    <a href="tel:0658184509" class="btn-primary w-full justify-center">
+                        <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                     </a>
                 </div>
             </div>
@@ -499,14 +767,8 @@
     ═══════════════════════════════════════════════ -->
     <section id="hero" class="relative min-h-screen md:min-h-[90vh] flex items-center overflow-hidden">
 
-        <!-- Background image -->
-        <div class="absolute inset-0">
-            <img src="images/header-image.webp"
-                 alt="Real Car Services — professional workshop in Pretoria"
-                 class="w-full h-full object-cover object-center"
-                 loading="eager" fetchpriority="high">
-            <div class="absolute inset-0 hero-overlay"></div>
-        </div>
+        <!-- Overlay -->
+        <div class="absolute inset-0 hero-overlay pointer-events-none"></div>
 
         <!-- Decorative right gradient -->
         <div class="absolute inset-y-0 right-0 w-1/3 pointer-events-none hidden lg:block"
@@ -549,7 +811,7 @@
                 <div class="fade-up d5 flex flex-wrap gap-x-8 gap-y-3 mt-12">
                     <span class="flex items-center gap-2 text-gray-300 text-xs font-medium">
                         <i class="fas fa-check-circle" style="color:#f37500"></i>
-                        15+ Years Experience
+                        5+ Years Experience
                     </span>
                     <span class="flex items-center gap-2 text-gray-300 text-xs font-medium">
                         <i class="fas fa-check-circle" style="color:#f37500"></i>
@@ -565,7 +827,7 @@
         </div>
 
         <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-10"
              style="opacity: 0.45">
             <span class="text-white text-[0.6rem] uppercase tracking-[0.2em]">Scroll</span>
             <div class="w-px h-10" style="background: rgba(255,255,255,0.35)"></div>
@@ -581,7 +843,7 @@
                 <div class="flex items-center gap-3 text-white">
                     <i class="fas fa-award text-2xl opacity-90 flex-shrink-0"></i>
                     <div>
-                        <p class="text-base font-display font-extrabold leading-none">15+</p>
+                        <p class="text-base font-display font-extrabold leading-none">5+</p>
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Years Experience</p>
                     </div>
                 </div>
@@ -610,10 +872,10 @@
                     </div>
                 </div>
                 <div class="trust-divider hidden md:block w-px h-8" style="background:rgba(255,255,255,0.25)"></div>
-                <a href="tel:0120065716" class="flex items-center gap-3 text-white group">
+                <a href="tel:+27658184509" class="flex items-center gap-3 text-white group">
                     <i class="fas fa-phone-alt text-2xl opacity-90 group-hover:opacity-100 transition-opacity flex-shrink-0"></i>
                     <div>
-                        <p class="text-base font-display font-extrabold leading-none">012 006 5716</p>
+                        <p class="text-base font-display font-extrabold leading-none">065 818 4509</p>
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Call Us Now</p>
                     </div>
                 </a>
@@ -630,22 +892,30 @@
 
                 <!-- Image mosaic -->
                 <div class="w-full lg:w-[48%] grid grid-cols-2 gap-3 reveal">
-                    <img src="images/who-we-are1.webp"
-                         alt="Technician inspecting a vehicle at Real Car Services"
-                         class="w-full h-56 md:h-72 object-cover"
-                         loading="lazy">
-                    <img src="images/who-we-are2.webp"
-                         alt="Professional vehicle servicing"
-                         class="w-full h-56 md:h-72 object-cover mosaic-2"
-                         loading="lazy">
-                    <img src="images/who-we-are3.webp"
-                         alt="Engine inspection in progress"
-                         class="w-full h-56 md:h-72 object-cover mosaic-3"
-                         loading="lazy">
-                    <img src="images/who-we-are4.webp"
-                         alt="Workshop tools and equipment"
-                         class="w-full h-56 md:h-72 object-cover"
-                         loading="lazy">
+                    <div class="mosaic-img-wrap">
+                        <img src="images/who-we-are1.webp"
+                             alt="Technician inspecting a vehicle at Real Car Services"
+                             class="w-full h-56 md:h-72 object-cover"
+                             loading="lazy">
+                    </div>
+                    <div class="mosaic-img-wrap">
+                        <img src="images/who-we-are2.webp"
+                             alt="Professional vehicle servicing"
+                             class="w-full h-56 md:h-72 object-cover mosaic-2"
+                             loading="lazy">
+                    </div>
+                    <div class="mosaic-img-wrap">
+                        <img src="images/who-we-are3.webp"
+                             alt="Engine inspection in progress"
+                             class="w-full h-56 md:h-72 object-cover mosaic-3"
+                             loading="lazy">
+                    </div>
+                    <div class="mosaic-img-wrap">
+                        <img src="images/who-we-are4.webp"
+                             alt="Workshop tools and equipment"
+                             class="w-full h-56 md:h-72 object-cover"
+                             loading="lazy">
+                    </div>
                 </div>
 
                 <!-- Text -->
@@ -709,21 +979,23 @@
 
                 <!-- Image with badge -->
                 <div class="w-full lg:w-[46%] relative reveal">
-                    <img src="images/why-choose-us.webp"
-                         alt="Why choose Real Car Services — quality and trust"
-                         class="w-full h-[360px] md:h-[480px] object-cover"
-                         loading="lazy">
+                    <div class="why-img-wrap">
+                        <img src="images/why-choose-us.webp"
+                             alt="Why choose Real Car Services — quality and trust"
+                             class="w-full h-[360px] md:h-[480px] object-cover"
+                             loading="lazy">
+                    </div>
 
                     <!-- Experience badge -->
                     <div class="why-badge absolute -bottom-5 -left-0 md:-left-6 flex items-center gap-4 px-6 py-5"
                          style="background:#f37500">
                         <i class="fas fa-award text-3xl text-white opacity-90"></i>
                         <div class="text-white">
-                            <p class="text-3xl font-display font-extrabold leading-none">15+</p>
+                            <p class="text-3xl font-display font-extrabold leading-none">5+</p>
                             <p class="text-[0.6rem] font-bold uppercase tracking-widest opacity-90 mt-0.5">Years Experience</p>
                         </div>
                     </div>
-                </div>
+                </div>  <!-- end why-img-wrap -->
 
                 <!-- Text -->
                 <div class="w-full lg:w-[54%] pt-10 lg:pt-0 reveal">
@@ -986,8 +1258,8 @@
                         Call us and we'll guide you — free consultation, no pressure.
                     </p>
                 </div>
-                <a href="tel:0120065716" class="btn-primary flex-shrink-0">
-                    <i class="fas fa-phone-alt text-xs"></i> 012 006 5716
+                <a href="tel:0658184509" class="btn-primary flex-shrink-0">
+                    <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                 </a>
             </div>
 
@@ -1204,16 +1476,8 @@
                                  style="background: rgba(243,117,0,0.15)">
                                 <i class="fas fa-phone-alt text-xs" style="color:#f37500"></i>
                             </div>
-                            <a href="tel:0120065716"
-                               class="hover:text-white transition-colors">012 006 5716</a>
-                        </li>
-                        <li class="flex items-center gap-4 text-gray-300 text-sm">
-                            <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                                 style="background: rgba(243,117,0,0.15)">
-                                <i class="fas fa-mobile-alt text-xs" style="color:#f37500"></i>
-                            </div>
-                            <a href="tel:+27658184509"
-                               class="hover:text-white transition-colors">+27 65 818 4509</a>
+                            <a href="tel:0658184509"
+                               class="hover:text-white transition-colors">065 818 4509</a>
                         </li>
                         <li class="flex items-center gap-4 text-gray-300 text-sm">
                             <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
@@ -1399,24 +1663,10 @@
                             </div>
                             <div>
                                 <p class="text-[0.65rem] font-bold uppercase tracking-widest mb-1 text-gray-400">Phone</p>
-                                <a href="tel:0120065716"
+                                <a href="tel:0658184509"
                                    class="font-semibold text-[0.95rem] hover-orange transition-colors"
                                    style="color:#364225">
-                                    012 006 5716
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="flex items-start gap-5">
-                            <div class="contact-icon flex-shrink-0">
-                                <i class="fas fa-mobile-alt text-sm"></i>
-                            </div>
-                            <div>
-                                <p class="text-[0.65rem] font-bold uppercase tracking-widest mb-1 text-gray-400">Mobile</p>
-                                <a href="tel:+27658184509"
-                                   class="font-semibold text-[0.95rem] hover-orange transition-colors"
-                                   style="color:#364225">
-                                    +27 65 818 4509
+                                    065 818 4509
                                 </a>
                             </div>
                         </li>
@@ -1456,6 +1706,133 @@
 
         </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════
+         GALLERY
+    ═══════════════════════════════════════════════ -->
+    <section id="gallery" class="py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+            <!-- Header -->
+            <div class="text-center mb-14 reveal">
+                <p class="section-label-center mb-5" style="color:#f37500">
+                    Our Work
+                </p>
+                <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white leading-tight">
+                    Workshop <span style="color:#f37500">Gallery</span>
+                </h2>
+                <p class="text-gray-500 text-sm mt-4 max-w-md mx-auto leading-relaxed">
+                    A look inside our workshop and the vehicles we care for — quality workmanship in every job.
+                </p>
+            </div>
+
+            <!-- Grid -->
+            <div class="gallery-grid">
+
+                <!-- Featured large item -->
+                <div class="gallery-item featured reveal" data-src="images/header-image.webp">
+                    <img src="images/header-image.webp"
+                         alt="Real Car Services — professional automotive workshop"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="gallery-item reveal" data-src="images/who-we-are1.webp">
+                    <img src="images/who-we-are1.webp"
+                         alt="Technician inspecting a vehicle"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="gallery-item reveal" data-src="images/who-we-are2.webp">
+                    <img src="images/who-we-are2.webp"
+                         alt="Professional vehicle servicing"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="gallery-item reveal" data-src="images/why-choose-us.webp">
+                    <img src="images/why-choose-us.webp"
+                         alt="Quality workmanship at Real Car Services"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="gallery-item reveal" data-src="images/who-we-are3.webp">
+                    <img src="images/who-we-are3.webp"
+                         alt="Engine inspection in progress"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="gallery-item reveal" data-src="images/who-we-are4.webp">
+                    <img src="images/who-we-are4.webp"
+                         alt="Workshop tools and equipment"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 7 — workshop spans tall -->
+                <div class="gallery-item featured-row reveal" data-src="images/our-workshop.webp">
+                    <img src="images/our-workshop.webp"
+                         alt="Real Car Services workshop — Capital Park, Pretoria"
+                         loading="lazy">
+                    <div class="gallery-icon">
+                        <div class="gallery-icon-inner">
+                            <i class="fas fa-expand-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center mt-14 reveal">
+                <p class="text-gray-500 text-sm mb-5">Want to see your vehicle get the treatment it deserves?</p>
+                <a href="#quote" class="btn-primary">
+                    Book Your Service <i class="fas fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button id="lightbox-close" aria-label="Close image viewer">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Gallery image enlarged">
+    </div>
 
     <!-- ═══════════════════════════════════════════════
          FOOTER
@@ -1504,6 +1881,7 @@
                     <ul class="space-y-3">
                         <li><a href="#about"    class="text-gray-500 hover:text-white text-sm transition-colors">About Us</a></li>
                         <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Services</a></li>
+                        <li><a href="#gallery"  class="text-gray-500 hover:text-white text-sm transition-colors">Gallery</a></li>
                         <li><a href="#faq"      class="text-gray-500 hover:text-white text-sm transition-colors">FAQ</a></li>
                         <li><a href="#quote"    class="text-gray-500 hover:text-white text-sm transition-colors">Get a Quote</a></li>
                         <li><a href="#workshop" class="text-gray-500 hover:text-white text-sm transition-colors">Contact</a></li>
@@ -1528,13 +1906,8 @@
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3 text-gray-500 text-sm">
                             <i class="fas fa-phone-alt w-4 text-center flex-shrink-0" style="color:#f37500"></i>
-                            <a href="tel:0120065716"
-                               class="hover:text-white transition-colors">012 006 5716</a>
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-500 text-sm">
-                            <i class="fas fa-mobile-alt w-4 text-center flex-shrink-0" style="color:#f37500"></i>
-                            <a href="tel:+27658184509"
-                               class="hover:text-white transition-colors">+27 65 818 4509</a>
+                            <a href="tel:0658184509"
+                               class="hover:text-white transition-colors">065 818 4509</a>
                         </li>
                         <li class="flex items-center gap-3 text-gray-500 text-sm">
                             <i class="fas fa-envelope w-4 text-center flex-shrink-0" style="color:#f37500"></i>
@@ -1612,6 +1985,25 @@
             revealObserver.observe(el);
         });
 
+        // ── Image animation observers ──────────────────────
+        // Mosaic images
+        const imgAnimObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    imgAnimObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll(
+            '.mosaic-img-wrap, .why-img-wrap, .workshop-img-wrap, .gallery-item'
+        ).forEach((el, i) => {
+            // Small stagger per image
+            el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;
+            imgAnimObserver.observe(el);
+        });
+
         // ── Service card stagger reveal ────────────────────
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1651,6 +2043,39 @@
         }, { threshold: 0.4 });
 
         document.querySelectorAll('section[id]').forEach(s => activeObserver.observe(s));
+
+        // ── Gallery Lightbox ───────────────────────────────
+        const lightbox     = document.getElementById('lightbox');
+        const lightboxImg  = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const src = item.getAttribute('data-src');
+                const alt = item.querySelector('img') ? item.querySelector('img').getAttribute('alt') : '';
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            // Brief delay before clearing src to allow fade-out
+            setTimeout(() => { lightboxImg.src = ''; }, 300);
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
+        });
     </script>
 
 </body>
