@@ -408,86 +408,163 @@
             outline-offset: 3px;
         }
 
-        /* ─── Image animations ─── */
-        /* Zoom-reveal: images start slightly scaled up, fade+scale to normal */
-        .img-zoom {
-            overflow: hidden;
-        }
-        .img-zoom img {
-            transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        filter 0.75s ease;
-            transform: scale(1.06);
-            filter: brightness(0.92);
-            will-change: transform;
-        }
-        .img-zoom.visible img,
-        .img-zoom.no-anim img {
-            transform: scale(1);
-            filter: brightness(1);
-        }
-        /* Hover zoom on standalone images */
-        .img-hover-zoom {
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .img-hover-zoom img {
-            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        filter 0.45s ease;
-            will-change: transform;
-        }
-        .img-hover-zoom:hover img {
-            transform: scale(1.04);
-            filter: brightness(1.04) contrast(1.02);
-        }
-        /* Mosaic images — combine zoom-reveal + hover */
-        .mosaic-img-wrap {
+        /* ════════════════════════════════════════
+           IMAGE REVEAL ANIMATIONS
+           ════════════════════════════════════════
+           A brand-coloured panel wipes across each
+           image, then retreats to reveal the photo
+           underneath. The image itself arrives from
+           a direction with a subtle scale+translate.
+           An orange accent line wipes in at the end.
+        ═════════════════════════════════════════ */
+
+        .img-reveal {
             overflow: hidden;
             position: relative;
         }
-        .mosaic-img-wrap img {
-            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        filter 0.5s ease;
-            transform: scale(1.07);
-            filter: brightness(0.88);
-            will-change: transform;
+
+        /* Image resting state — dark, slightly zoomed, offset */
+        .img-reveal img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.12) translateX(10px);
+            filter: brightness(0.65);
+            transition:
+                transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+                filter    0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, filter;
         }
-        .mosaic-img-wrap.visible img {
-            transform: scale(1);
+
+        /* The wipe mask — brand green panel sitting on top */
+        .img-reveal::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: #364225;
+            transform-origin: left center;
+            transform: scaleX(1);
+            transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0s;
+        }
+
+        /* REVEALED — mask exits, image settles */
+        .img-reveal.revealed::before {
+            transform: scaleX(0);
+            transform-origin: right center;
+        }
+        .img-reveal.revealed img {
+            transform: scale(1) translateX(0);
             filter: brightness(1);
         }
-        .mosaic-img-wrap:hover img {
-            transform: scale(1.04);
-            filter: brightness(1.05);
+
+        /* Stagger delays for groups of images */
+        .img-reveal.d1::before { transition-delay: 0.10s; }
+        .img-reveal.d1 img     { transition-delay: 0.16s; }
+        .img-reveal.d2::before { transition-delay: 0.22s; }
+        .img-reveal.d2 img     { transition-delay: 0.28s; }
+        .img-reveal.d3::before { transition-delay: 0.34s; }
+        .img-reveal.d3 img     { transition-delay: 0.40s; }
+
+        /* Directional variant — from right (Why Choose Us) */
+        .img-reveal.from-right::before {
+            transform-origin: right center;
+            transform: scaleX(1);
         }
-        /* Why-choose-us image */
-        .why-img-wrap {
-            overflow: hidden;
+        .img-reveal.from-right img {
+            transform: scale(1.1) translateX(-10px);
         }
-        .why-img-wrap img {
-            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: scale(1.05);
-            will-change: transform;
+        .img-reveal.from-right.revealed::before {
+            transform: scaleX(0);
+            transform-origin: left center;
         }
-        .why-img-wrap.visible img {
-            transform: scale(1);
+        .img-reveal.from-right.revealed img {
+            transform: scale(1) translateX(0);
         }
-        .why-img-wrap:hover img {
-            transform: scale(1.03);
+
+        /* Directional variant — from bottom (Workshop) */
+        .img-reveal.from-bottom::before {
+            transform-origin: top center;
+            transform: scaleY(1);
+            transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
         }
-        /* Workshop image */
-        .workshop-img-wrap img {
-            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        filter 0.5s ease;
-            transform: scale(1.04);
-            filter: brightness(0.95);
-            will-change: transform;
+        .img-reveal.from-bottom img {
+            transform: scale(1.08) translateY(14px);
         }
-        .workshop-img-wrap.visible img {
-            transform: scale(1);
-            filter: brightness(1);
+        .img-reveal.from-bottom.revealed::before {
+            transform: scaleY(0);
+            transform-origin: bottom center;
         }
-        .workshop-img-wrap:hover img {
-            transform: scale(1.03);
+        .img-reveal.from-bottom.revealed img {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Orange accent line — wipes in after the reveal */
+        .img-reveal .accent-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: #f37500;
+            z-index: 3;
+            transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1s;
+            pointer-events: none;
+        }
+        .img-reveal.revealed .accent-line {
+            width: 38%;
+        }
+
+        /* Hover — gentle zoom + brightness + shimmer sweep */
+        .img-reveal:hover img {
+            transform: scale(1.05) translateX(0) !important;
+            filter: brightness(1.07) contrast(1.02) !important;
+            transition-duration: 0.65s, 0.5s !important;
+        }
+        .img-reveal::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(
+                120deg,
+                transparent 0%,
+                transparent 35%,
+                rgba(255,255,255,0.07) 50%,
+                transparent 65%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            background-position: -100% 0;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .img-reveal:hover::after {
+            opacity: 1;
+            background-position: 200% 0;
+            transition:
+                background-position 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.25s ease;
+        }
+
+        /* Reduced motion — skip all animation, show images immediately */
+        @media (prefers-reduced-motion: reduce) {
+            .img-reveal::before {
+                transition: none !important;
+                transform: scaleX(0) !important;
+            }
+            .img-reveal img {
+                transition: none !important;
+                transform: none !important;
+                filter: none !important;
+            }
+            .img-reveal .accent-line {
+                width: 38% !important;
+                transition: none !important;
+            }
+            .img-reveal::after { display: none; }
         }
 
         /* ─── Gallery ─── */
@@ -536,7 +613,7 @@
             will-change: transform;
             min-height: 200px;
         }
-        .gallery-item.visible img {
+        .gallery-item.revealed img {
             transform: scale(1);
             filter: brightness(1);
         }
@@ -643,14 +720,9 @@
         }
         #lightbox-close:hover { background: rgba(243,117,0,0.4); }
 
-        /* ─── Reduced-motion: disable gallery + image animations ─── */
+        /* ─── Reduced-motion: disable gallery animations ─── */
         @media (prefers-reduced-motion: reduce) {
-            .gallery-item img,
-            .mosaic-img-wrap img,
-            .why-img-wrap img,
-            .workshop-img-wrap img,
-            .img-zoom img,
-            .img-hover-zoom img {
+            .gallery-item img {
                 transform: none !important;
                 filter: none !important;
                 transition: none !important;
@@ -892,28 +964,32 @@
 
                 <!-- Image mosaic -->
                 <div class="w-full lg:w-[48%] grid grid-cols-2 gap-3 reveal">
-                    <div class="mosaic-img-wrap">
+                    <div class="img-reveal">
+                        <div class="accent-line"></div>
                         <img src="images/who-we-are1.webp"
                              alt="Technician inspecting a vehicle at Real Car Services"
-                             class="w-full h-56 md:h-72 object-cover"
+                             class="w-full h-56 md:h-72"
                              loading="lazy">
                     </div>
-                    <div class="mosaic-img-wrap">
+                    <div class="img-reveal d1">
+                        <div class="accent-line"></div>
                         <img src="images/who-we-are2.webp"
                              alt="Professional vehicle servicing"
-                             class="w-full h-56 md:h-72 object-cover mosaic-2"
+                             class="w-full h-56 md:h-72 mosaic-2"
                              loading="lazy">
                     </div>
-                    <div class="mosaic-img-wrap">
+                    <div class="img-reveal d2">
+                        <div class="accent-line"></div>
                         <img src="images/who-we-are3.webp"
                              alt="Engine inspection in progress"
-                             class="w-full h-56 md:h-72 object-cover mosaic-3"
+                             class="w-full h-56 md:h-72 mosaic-3"
                              loading="lazy">
                     </div>
-                    <div class="mosaic-img-wrap">
+                    <div class="img-reveal d3">
+                        <div class="accent-line"></div>
                         <img src="images/who-we-are4.webp"
                              alt="Workshop tools and equipment"
-                             class="w-full h-56 md:h-72 object-cover"
+                             class="w-full h-56 md:h-72"
                              loading="lazy">
                     </div>
                 </div>
@@ -979,7 +1055,8 @@
 
                 <!-- Image with badge -->
                 <div class="w-full lg:w-[46%] relative reveal">
-                    <div class="why-img-wrap">
+                    <div class="img-reveal from-right">
+                        <div class="accent-line"></div>
                         <img src="images/why-choose-us.webp"
                              alt="Why choose Real Car Services — quality and trust"
                              class="w-full h-[360px] md:h-[480px] object-cover"
@@ -995,7 +1072,7 @@
                             <p class="text-[0.6rem] font-bold uppercase tracking-widest opacity-90 mt-0.5">Years Experience</p>
                         </div>
                     </div>
-                </div>  <!-- end why-img-wrap -->
+                </div>
 
                 <!-- Text -->
                 <div class="w-full lg:w-[54%] pt-10 lg:pt-0 reveal">
@@ -1632,7 +1709,8 @@
             <div class="flex flex-col lg:flex-row border border-gray-100 reveal overflow-hidden">
 
                 <!-- Image -->
-                <div class="w-full lg:w-1/2 workshop-img-wrap">
+                <div class="w-full lg:w-1/2 workshop-img-wrap img-reveal from-bottom">
+                    <div class="accent-line"></div>
                     <img src="images/our-workshop.webp"
                          alt="Real Car Services workshop in Capital Park, Pretoria"
                          class="w-full object-cover"
@@ -1985,23 +2063,18 @@
             revealObserver.observe(el);
         });
 
-        // ── Image animation observers ──────────────────────
-        // Mosaic images
-        const imgAnimObserver = new IntersectionObserver((entries) => {
+        // ── Image reveal animations ───────────────────────
+        const imgRevealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    imgAnimObserver.unobserve(entry.target);
+                    entry.target.classList.add('revealed');
+                    imgRevealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll(
-            '.mosaic-img-wrap, .why-img-wrap, .workshop-img-wrap, .gallery-item'
-        ).forEach((el, i) => {
-            // Small stagger per image
-            el.style.transitionDelay = `${Math.min(i * 0.07, 0.35)}s`;
-            imgAnimObserver.observe(el);
+        document.querySelectorAll('.img-reveal, .gallery-item').forEach(el => {
+            imgRevealObserver.observe(el);
         });
 
         // ── Service card stagger reveal ────────────────────
