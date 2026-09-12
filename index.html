@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -21,715 +22,15 @@
                         display: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        green:       { DEFAULT: '#4d5d36', dark: '#364225', light: '#5e7040' },
-                        orange:      { DEFAULT: '#f37500', light: '#ff8c24', pale: '#fff3e6' },
-                        offwhite:    '#f8f8f6',
-                        dark:        '#0e0f0d',
+                        green:    { DEFAULT: '#4d5d36', dark: '#364225', light: '#5e7040' },
+                        orange:   { DEFAULT: '#f37500', light: '#ff8c24', pale: '#fff3e6' },
+                        offwhite: '#f8f8f6',
+                        dark:     '#0e0f0d',
                     },
                 }
             }
         }
     </script>
-
-    <style>
-        /* ─── Base ─── */
-        *, *::before, *::after { box-sizing: border-box; }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #4d5d36; border-radius: 99px; }
-        ::-webkit-scrollbar-thumb:hover { background: #f37500; }
-
-        ::selection { background: #f37500; color: #fff; }
-
-        body { -webkit-font-smoothing: antialiased; }
-
-        /* ─── Typography helpers ─── */
-        .font-display { font-family: 'Poppins', sans-serif; }
-
-        /* ─── Topbar ─── */
-        #topbar {
-            background: #364225;
-            font-size: 0.72rem;
-            letter-spacing: 0.01em;
-        }
-
-        /* ─── Navigation ─── */
-        #main-nav {
-            background: rgba(255,255,255,0.97);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            transition: box-shadow 0.3s ease, background 0.3s ease;
-        }
-        #main-nav.scrolled {
-            box-shadow: 0 2px 32px rgba(0,0,0,0.09);
-        }
-
-        .nav-link {
-            position: relative;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            text-transform: uppercase;
-            color: #4d5d36;
-            transition: color 0.2s;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -3px; left: 0;
-            width: 0; height: 2px;
-            background: #f37500;
-            transition: width 0.25s ease;
-            border-radius: 99px;
-        }
-        .nav-link:hover,
-        .nav-link.active { color: #f37500; }
-        .nav-link:hover::after,
-        .nav-link.active::after { width: 100%; }
-
-        /* ─── Mobile menu ─── */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1);
-        }
-        #mobile-menu.open { max-height: 520px; }
-
-        /* ─── Hero ─── */
-        .hero-overlay {
-            background: linear-gradient(
-                105deg,
-                rgba(54,66,37,0.92) 0%,
-                rgba(54,66,37,0.80) 45%,
-                rgba(54,66,37,0.45) 100%
-            );
-        }
-
-        /* ─── Hero ─── */
-        #hero {
-            position: relative;
-            background-image: url('images/header-image.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            /* Fixed attachment = image stays still, content scrolls over it */
-            background-attachment: fixed;
-        }
-        /* On touch/mobile devices background-attachment:fixed is janky — fall back to scroll */
-        @media (max-width: 1023px) {
-            #hero { background-attachment: scroll; }
-        }
-
-        /* ─── Entrance animations ─── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(28px); }
-            to   { opacity: 1; transform: translateY(0);    }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-        .fade-up   { opacity: 0; animation: fadeUp 0.7s ease forwards; }
-        .fade-in   { opacity: 0; animation: fadeIn 0.7s ease forwards; }
-        .d1 { animation-delay: 0.05s; }
-        .d2 { animation-delay: 0.18s; }
-        .d3 { animation-delay: 0.32s; }
-        .d4 { animation-delay: 0.46s; }
-        .d5 { animation-delay: 0.60s; }
-
-        /* ─── Trust bar ─── */
-        .trust-bar { background: #f37500; }
-
-        /* ─── Section label ─── */
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.625rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #f37500;
-        }
-        .section-label::before {
-            content: '';
-            display: block;
-            width: 2rem;
-            height: 2px;
-            background: #f37500;
-            border-radius: 99px;
-            flex-shrink: 0;
-        }
-        /* Centered variant — no leading dash, uses flanking lines instead */
-        .section-label-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #f37500;
-        }
-        .section-label-center::before,
-        .section-label-center::after {
-            content: '';
-            display: block;
-            width: 1.5rem;
-            height: 2px;
-            background: #f37500;
-            border-radius: 99px;
-            flex-shrink: 0;
-        }
-
-        /* ─── Service cards ─── */
-        .svc-card {
-            background: #fff;
-            border: 1px solid #ebebea;
-            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-            position: relative;
-            overflow: hidden;
-            /* Visible by default; JS adds stagger reveal */
-        }
-        .svc-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 3px;
-            background: #f37500;
-            transition: width 0.3s ease;
-        }
-        .svc-card:hover {
-            border-color: transparent;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.09);
-            transform: translateY(-3px);
-        }
-        .svc-card:hover::after { width: 100%; }
-
-        .svc-icon {
-            width: 2.75rem;
-            height: 2.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(77,93,54,0.08);
-            color: #4d5d36;
-            flex-shrink: 0;
-            transition: background 0.2s, color 0.2s;
-        }
-        .svc-card:hover .svc-icon {
-            background: #f37500;
-            color: #fff;
-        }
-
-        /* ─── FAQ ─── */
-        details > summary { list-style: none; cursor: pointer; }
-        details > summary::-webkit-details-marker { display: none; }
-
-        .faq-item { border: 1px solid #e8e8e6; background: #fff; transition: box-shadow 0.2s; }
-        .faq-item[open] { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
-
-        .faq-icon { transition: transform 0.25s ease; }
-        details[open] .faq-icon { transform: rotate(45deg); }
-
-        /* ─── Quote form ─── */
-        .form-field {
-            width: 100%;
-            background: transparent;
-            border: 0;
-            border-bottom: 1.5px solid #d4d4d0;
-            padding: 0.625rem 0;
-            font-size: 0.875rem;
-            font-family: 'Inter', sans-serif;
-            color: #1a1a18;
-            font-weight: 500;
-            transition: border-color 0.2s;
-        }
-        .form-field::placeholder { color: #b0b0a8; }
-        .form-field:focus { outline: none; border-color: #f37500; }
-
-        /* ─── Contact icon box ─── */
-        .contact-icon {
-            width: 2.75rem;
-            height: 2.75rem;
-            background: #4d5d36;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        /* ─── Image mosaic ─── */
-        @media (min-width: 1024px) {
-            .mosaic-2 { margin-top: 2.5rem; }
-            .mosaic-3 { margin-top: -2rem; }
-        }
-
-        /* ─── Intersection reveal ─── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.55s ease, transform 0.55s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* ─── Buttons ─── */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #f37500;
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 0.875rem 2rem;
-            border: 2px solid #f37500;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-        }
-        .btn-primary:hover {
-            background: #ff8c24;
-            border-color: #ff8c24;
-            box-shadow: 0 4px 18px rgba(243,117,0,0.35);
-        }
-
-        .btn-outline-white {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: transparent;
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 0.875rem 2rem;
-            border: 2px solid rgba(255,255,255,0.45);
-            transition: border-color 0.2s, background 0.2s;
-        }
-        .btn-outline-white:hover {
-            border-color: #fff;
-            background: rgba(255,255,255,0.08);
-        }
-
-        .btn-green {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #4d5d36;
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 0.875rem 2rem;
-            border: 2px solid #4d5d36;
-            transition: background 0.2s, border-color 0.2s;
-        }
-        .btn-green:hover {
-            background: #364225;
-            border-color: #364225;
-        }
-
-        /* ─── Service card link ─── */
-        .svc-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #f37500;
-            transition: gap 0.2s ease, opacity 0.2s;
-        }
-        .svc-link:hover { gap: 0.75rem; opacity: 0.85; }
-
-        /* ─── Workshop image container ─── */
-        .workshop-img-wrap { overflow: hidden; }
-        @media (min-width: 1024px) {
-            .workshop-img-wrap img { height: 100%; min-height: 420px; max-height: 520px; }
-        }
-
-        /* ─── Footer bottom border ─── */
-        #footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); }
-
-        /* ─── Footer social hover ─── */
-        .social-btn:hover {
-            color: #fff !important;
-            border-color: rgba(243,117,0,0.5) !important;
-            background: rgba(243,117,0,0.12) !important;
-        }
-
-        /* ─── Trust bar — 2-col on small mobile ─── */
-        @media (max-width: 767px) {
-            .trust-inner {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr;
-                gap: 1.25rem 2rem !important;
-                justify-items: start;
-            }
-            .trust-divider { display: none !important; }
-        }
-
-        /* ─── Why-us badge — static on mobile ─── */
-        @media (max-width: 1023px) {
-            .why-badge {
-                position: static !important;
-                display: inline-flex;
-                margin-top: 1.25rem;
-            }
-        }
-
-        /* ─── Reduced-motion safety ─── */
-        @media (prefers-reduced-motion: reduce) {
-            .svc-card, .reveal, .fade-up, .fade-in {
-                opacity: 1 !important;
-                transform: none !important;
-                animation: none !important;
-                transition: none !important;
-            }
-        }
-
-        /* ─── Hover orange utility (replaces Tailwind custom token) ─── */
-        .hover-orange:hover { color: #f37500 !important; }
-
-        /* ─── Focus visible ─── */
-        *:focus-visible {
-            outline: 2px solid #f37500;
-            outline-offset: 3px;
-        }
-
-        /* ════════════════════════════════════════
-           IMAGE REVEAL ANIMATIONS
-           ════════════════════════════════════════
-           A brand-coloured panel wipes across each
-           image, then retreats to reveal the photo
-           underneath. The image itself arrives from
-           a direction with a subtle scale+translate.
-           An orange accent line wipes in at the end.
-        ═════════════════════════════════════════ */
-
-        .img-reveal {
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Image resting state — dark, slightly zoomed, offset */
-        .img-reveal img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(1.12) translateX(10px);
-            filter: brightness(0.65);
-            transition:
-                transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
-                filter    0.9s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, filter;
-        }
-
-        /* The wipe mask — brand green panel sitting on top */
-        .img-reveal::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            background: #364225;
-            transform-origin: left center;
-            transform: scaleX(1);
-            transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1) 0s;
-        }
-
-        /* REVEALED — mask exits, image settles */
-        .img-reveal.revealed::before {
-            transform: scaleX(0);
-            transform-origin: right center;
-        }
-        .img-reveal.revealed img {
-            transform: scale(1) translateX(0);
-            filter: brightness(1);
-        }
-
-        /* Stagger delays for groups of images */
-        .img-reveal.d1::before { transition-delay: 0.10s; }
-        .img-reveal.d1 img     { transition-delay: 0.16s; }
-        .img-reveal.d2::before { transition-delay: 0.22s; }
-        .img-reveal.d2 img     { transition-delay: 0.28s; }
-        .img-reveal.d3::before { transition-delay: 0.34s; }
-        .img-reveal.d3 img     { transition-delay: 0.40s; }
-
-        /* Directional variant — from right (Why Choose Us) */
-        .img-reveal.from-right::before {
-            transform-origin: right center;
-            transform: scaleX(1);
-        }
-        .img-reveal.from-right img {
-            transform: scale(1.1) translateX(-10px);
-        }
-        .img-reveal.from-right.revealed::before {
-            transform: scaleX(0);
-            transform-origin: left center;
-        }
-        .img-reveal.from-right.revealed img {
-            transform: scale(1) translateX(0);
-        }
-
-        /* Directional variant — from bottom (Workshop) */
-        .img-reveal.from-bottom::before {
-            transform-origin: top center;
-            transform: scaleY(1);
-            transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
-        }
-        .img-reveal.from-bottom img {
-            transform: scale(1.08) translateY(14px);
-        }
-        .img-reveal.from-bottom.revealed::before {
-            transform: scaleY(0);
-            transform-origin: bottom center;
-        }
-        .img-reveal.from-bottom.revealed img {
-            transform: scale(1) translateY(0);
-        }
-
-        /* Orange accent line — wipes in after the reveal */
-        .img-reveal .accent-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            width: 0;
-            background: #f37500;
-            z-index: 3;
-            transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1s;
-            pointer-events: none;
-        }
-        .img-reveal.revealed .accent-line {
-            width: 38%;
-        }
-
-        /* Hover — gentle zoom + brightness + shimmer sweep */
-        .img-reveal:hover img {
-            transform: scale(1.05) translateX(0) !important;
-            filter: brightness(1.07) contrast(1.02) !important;
-            transition-duration: 0.65s, 0.5s !important;
-        }
-        .img-reveal::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            background: linear-gradient(
-                120deg,
-                transparent 0%,
-                transparent 35%,
-                rgba(255,255,255,0.07) 50%,
-                transparent 65%,
-                transparent 100%
-            );
-            background-size: 300% 100%;
-            background-position: -100% 0;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-        }
-        .img-reveal:hover::after {
-            opacity: 1;
-            background-position: 200% 0;
-            transition:
-                background-position 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                opacity 0.25s ease;
-        }
-
-        /* Reduced motion — skip all animation, show images immediately */
-        @media (prefers-reduced-motion: reduce) {
-            .img-reveal::before {
-                transition: none !important;
-                transform: scaleX(0) !important;
-            }
-            .img-reveal img {
-                transition: none !important;
-                transform: none !important;
-                filter: none !important;
-            }
-            .img-reveal .accent-line {
-                width: 38% !important;
-                transition: none !important;
-            }
-            .img-reveal::after { display: none; }
-        }
-
-        /* ─── Gallery ─── */
-        #gallery {
-            background: #0e0f0d;
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-        }
-        @media (min-width: 640px) {
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        @media (min-width: 1024px) {
-            .gallery-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-            }
-            /* Featured items span 2 columns */
-            .gallery-item.featured {
-                grid-column: span 2;
-            }
-            .gallery-item.featured-row {
-                grid-row: span 2;
-            }
-        }
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            background: #1a1a18;
-            cursor: pointer;
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        filter 0.5s ease;
-            transform: scale(1.08);
-            filter: brightness(0.85);
-            will-change: transform;
-            min-height: 200px;
-        }
-        .gallery-item.revealed img {
-            transform: scale(1);
-            filter: brightness(1);
-        }
-        .gallery-item:hover img {
-            transform: scale(1.06);
-            filter: brightness(1.08) saturate(1.1);
-        }
-        /* Overlay on hover */
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                180deg,
-                transparent 50%,
-                rgba(54, 66, 37, 0.65) 100%
-            );
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
-        .gallery-item:hover::after {
-            opacity: 1;
-        }
-        /* Hover reveal icon */
-        .gallery-item .gallery-icon {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-            z-index: 2;
-            pointer-events: none;
-        }
-        .gallery-item:hover .gallery-icon {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .gallery-icon-inner {
-            width: 3rem;
-            height: 3rem;
-            border: 2px solid rgba(255,255,255,0.7);
-            background: rgba(243,117,0,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 0.9rem;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-        }
-        /* Gallery heights */
-        .gallery-item { aspect-ratio: 4/3; }
-        .gallery-item.featured { aspect-ratio: unset; }
-        @media (min-width: 1024px) {
-            .gallery-item { min-height: 220px; }
-            .gallery-item.featured { min-height: 220px; }
-            .gallery-item.featured-row { min-height: 448px; }
-        }
-
-        /* ─── Lightbox ─── */
-        #lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.94);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 1rem;
-        }
-        #lightbox.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        #lightbox img {
-            max-width: 90vw;
-            max-height: 88vh;
-            object-fit: contain;
-            border: 1px solid rgba(255,255,255,0.08);
-            transform: scale(0.92);
-            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        #lightbox.active img {
-            transform: scale(1);
-        }
-        #lightbox-close {
-            position: absolute;
-            top: 1.25rem; right: 1.5rem;
-            width: 2.5rem; height: 2.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-        }
-        #lightbox-close:hover { background: rgba(243,117,0,0.4); }
-
-        /* ─── Reduced-motion: disable gallery animations ─── */
-        @media (prefers-reduced-motion: reduce) {
-            .gallery-item img {
-                transform: none !important;
-                filter: none !important;
-                transition: none !important;
-                animation: none !important;
-            }
-        }
-    </style>
 </head>
 
 <body class="font-sans antialiased text-gray-800 bg-white">
@@ -738,14 +39,14 @@
          TOP BAR
     ═══════════════════════════════════════════════ -->
     <div id="topbar" class="hidden md:block text-gray-300 py-2.5">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+        <div class="container flex justify-between items-center">
             <div class="flex items-center gap-6 text-[0.72rem]">
                 <span class="flex items-center gap-1.5">
-                    <i class="far fa-clock" style="color:#f37500"></i>
+                    <i class="far fa-clock text-orange"></i>
                     Mon – Fri: 7:30am – 6pm &nbsp;·&nbsp; Sat: 7:30am – 5pm
                 </span>
                 <span class="flex items-center gap-1.5">
-                    <i class="fas fa-map-marker-alt" style="color:#f37500"></i>
+                    <i class="fas fa-map-marker-alt text-orange"></i>
                     369 Paul Kruger Street, Capital Park, Pretoria
                 </span>
             </div>
@@ -770,63 +71,52 @@
          NAVIGATION
     ═══════════════════════════════════════════════ -->
     <nav id="main-nav" class="sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="container h-16 flex items-center justify-between">
 
             <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group" aria-label="Real Car Services — Home">
-                <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                     style="background:#4d5d36">
+            <a href="#" class="flex items-center gap-3" aria-label="Real Car Services — Home">
+                <div class="icon-box icon-box-solid flex-shrink-0">
                     <i class="fas fa-car-side text-white text-xs"></i>
                 </div>
-                <span class="font-display text-[1.05rem] font-extrabold tracking-tight leading-none"
-                      style="color:#4d5d36">
-                    Real Car <span style="color:#f37500">Services</span>
+                <span class="font-display text-[1.05rem] font-extrabold tracking-tight leading-none text-green">
+                    Real Car <span class="text-orange">Services</span>
                 </span>
             </a>
 
             <!-- Desktop links -->
             <div class="hidden md:flex items-center gap-7">
-                <a href="#"       class="nav-link">Home</a>
-                <a href="#about"  class="nav-link">About</a>
+                <a href="#"         class="nav-link">Home</a>
+                <a href="#about"    class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
-                <a href="#faq"    class="nav-link">FAQ</a>
+                <a href="#gallery"  class="nav-link">Gallery</a>
+                <a href="#faq"      class="nav-link">FAQ</a>
                 <a href="#workshop" class="nav-link">Contact</a>
-                <a href="tel:0658184509"
-                   class="btn-primary text-[0.75rem] py-2.5 px-5 ml-2">
+                <a href="tel:0658184509" class="btn btn-primary text-[0.75rem] py-2.5 px-5 ml-2">
                     <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                 </a>
             </div>
 
-            <!-- Mobile hamburger -->
+            <!-- Hamburger -->
             <button id="menu-toggle"
                     aria-label="Toggle navigation menu"
                     aria-expanded="false"
                     aria-controls="mobile-menu"
-                    class="md:hidden p-2 -mr-2 focus:outline-none"
-                    style="color:#4d5d36">
+                    class="md:hidden p-2 -mr-2 text-green focus:outline-none">
                 <i id="menu-icon" class="fas fa-bars text-lg"></i>
             </button>
         </div>
 
         <!-- Mobile menu -->
         <div id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-            <div class="max-w-7xl mx-auto px-6 pb-5 pt-3 flex flex-col gap-1 border-t"
-                 style="border-color: rgba(0,0,0,0.06)">
-                <a href="#"         class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">Home</a>
-                <a href="#about"    class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">About</a>
-                <a href="#services" class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">Services</a>
-                <a href="#gallery"  class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">Gallery</a>
-                <a href="#faq"      class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">FAQ</a>
-                <a href="#workshop" class="py-2.5 px-2 text-sm font-semibold hover-orange transition-colors"
-                   style="color:#4d5d36" onclick="closeMobileMenu()">Contact</a>
-                <div class="pt-3 mt-1 border-t" style="border-color:rgba(0,0,0,0.06)">
-                    <a href="tel:0658184509" class="btn-primary w-full justify-center">
+            <div class="container pb-5 pt-3 flex flex-col gap-1 border-t border-black/[0.06]">
+                <a href="#"         class="mobile-nav-link" onclick="closeMobileMenu()">Home</a>
+                <a href="#about"    class="mobile-nav-link" onclick="closeMobileMenu()">About</a>
+                <a href="#services" class="mobile-nav-link" onclick="closeMobileMenu()">Services</a>
+                <a href="#gallery"  class="mobile-nav-link" onclick="closeMobileMenu()">Gallery</a>
+                <a href="#faq"      class="mobile-nav-link" onclick="closeMobileMenu()">FAQ</a>
+                <a href="#workshop" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+                <div class="pt-3 mt-1 border-t border-black/[0.06]">
+                    <a href="tel:0658184509" class="btn btn-primary w-full justify-center">
                         <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                     </a>
                 </div>
@@ -839,70 +129,55 @@
     ═══════════════════════════════════════════════ -->
     <section id="hero" class="relative min-h-screen md:min-h-[90vh] flex items-center overflow-hidden">
 
-        <!-- Overlay -->
         <div class="absolute inset-0 hero-overlay pointer-events-none"></div>
 
-        <!-- Decorative right gradient -->
         <div class="absolute inset-y-0 right-0 w-1/3 pointer-events-none hidden lg:block"
-             style="background:linear-gradient(to left, rgba(0,0,0,0.25), transparent)"></div>
+             style="background:linear-gradient(to left,rgba(0,0,0,0.25),transparent)"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-32 w-full">
+        <div class="relative z-10 container py-24 md:py-32 w-full">
             <div class="max-w-3xl">
 
-                <!-- Pre-heading -->
                 <div class="fade-up d1 flex items-center gap-3 mb-5">
-                    <span class="h-px w-10" style="background:#f37500"></span>
-                    <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em]"
-                          style="color:#f37500">Top Rated Mechanics in Pretoria</span>
+                    <span class="h-px w-10 bg-orange"></span>
+                    <span class="text-[0.7rem] font-bold uppercase tracking-[0.22em] text-orange">
+                        Top Rated Mechanics in Pretoria
+                    </span>
                 </div>
 
-                <!-- Headline -->
                 <h1 class="fade-up d2 font-display text-4xl sm:text-5xl md:text-[3.6rem] lg:text-[4.2rem] font-extrabold text-white leading-[1.08] mb-6">
                     Affordable &amp;&nbsp;Reliable<br>
-                    Car <span style="color:#f37500">Maintenance</span><br>
+                    Car <span class="text-orange">Maintenance</span><br>
                     Near&nbsp;You.
                 </h1>
 
-                <!-- Sub-copy -->
                 <p class="fade-up d3 text-gray-300 text-base md:text-lg font-light leading-relaxed max-w-xl mb-10">
                     Your trusted destination for premium car maintenance, repairs, and diagnostics in Pretoria.
                     Skilled mechanics. Transparent pricing. Service you can count on.
                 </p>
 
-                <!-- CTAs -->
                 <div class="fade-up d4 flex flex-col sm:flex-row gap-3">
-                    <a href="#quote" class="btn-primary">
-                        Request a Free Quote <i class="fas fa-arrow-right text-xs"></i>
-                    </a>
-                    <a href="#services" class="btn-outline-white">
-                        View Our Services
-                    </a>
+                    <a href="#quote"    class="btn btn-primary">Request a Free Quote <i class="fas fa-arrow-right text-xs"></i></a>
+                    <a href="#services" class="btn btn-outline-white">View Our Services</a>
                 </div>
 
-                <!-- Trust signals -->
                 <div class="fade-up d5 flex flex-wrap gap-x-8 gap-y-3 mt-12">
                     <span class="flex items-center gap-2 text-gray-300 text-xs font-medium">
-                        <i class="fas fa-check-circle" style="color:#f37500"></i>
-                        5+ Years Experience
+                        <i class="fas fa-check-circle text-orange"></i> 5+ Years Experience
                     </span>
                     <span class="flex items-center gap-2 text-gray-300 text-xs font-medium">
-                        <i class="fas fa-check-circle" style="color:#f37500"></i>
-                        Free Diagnosis &amp; Brake Checks
+                        <i class="fas fa-check-circle text-orange"></i> Free Diagnosis &amp; Brake Checks
                     </span>
                     <span class="flex items-center gap-2 text-gray-300 text-xs font-medium">
-                        <i class="fas fa-check-circle" style="color:#f37500"></i>
-                        24hr Emergency Service
+                        <i class="fas fa-check-circle text-orange"></i> 24hr Emergency Service
                     </span>
                 </div>
 
             </div>
         </div>
 
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-10"
-             style="opacity: 0.45">
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-10 opacity-40">
             <span class="text-white text-[0.6rem] uppercase tracking-[0.2em]">Scroll</span>
-            <div class="w-px h-10" style="background: rgba(255,255,255,0.35)"></div>
+            <div class="w-px h-10 bg-white/40"></div>
         </div>
     </section>
 
@@ -910,8 +185,9 @@
          TRUST BAR
     ═══════════════════════════════════════════════ -->
     <div class="trust-bar py-6">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="container">
             <div class="trust-inner flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-4">
+
                 <div class="flex items-center gap-3 text-white">
                     <i class="fas fa-award text-2xl opacity-90 flex-shrink-0"></i>
                     <div>
@@ -919,7 +195,9 @@
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Years Experience</p>
                     </div>
                 </div>
-                <div class="trust-divider hidden md:block w-px h-8" style="background:rgba(255,255,255,0.25)"></div>
+
+                <div class="trust-divider hidden md:block w-px h-8 bg-white/25"></div>
+
                 <div class="flex items-center gap-3 text-white">
                     <i class="fas fa-tools text-2xl opacity-90 flex-shrink-0"></i>
                     <div>
@@ -927,7 +205,9 @@
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Domestic &amp; Imported</p>
                     </div>
                 </div>
-                <div class="trust-divider hidden md:block w-px h-8" style="background:rgba(255,255,255,0.25)"></div>
+
+                <div class="trust-divider hidden md:block w-px h-8 bg-white/25"></div>
+
                 <div class="flex items-center gap-3 text-white">
                     <i class="fas fa-stethoscope text-2xl opacity-90 flex-shrink-0"></i>
                     <div>
@@ -935,7 +215,9 @@
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Diagnosis &amp; Brake Checks</p>
                     </div>
                 </div>
-                <div class="trust-divider hidden md:block w-px h-8" style="background:rgba(255,255,255,0.25)"></div>
+
+                <div class="trust-divider hidden md:block w-px h-8 bg-white/25"></div>
+
                 <div class="flex items-center gap-3 text-white">
                     <i class="fas fa-headset text-2xl opacity-90 flex-shrink-0"></i>
                     <div>
@@ -943,7 +225,9 @@
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Emergency Support</p>
                     </div>
                 </div>
-                <div class="trust-divider hidden md:block w-px h-8" style="background:rgba(255,255,255,0.25)"></div>
+
+                <div class="trust-divider hidden md:block w-px h-8 bg-white/25"></div>
+
                 <a href="tel:+27658184509" class="flex items-center gap-3 text-white group">
                     <i class="fas fa-phone-alt text-2xl opacity-90 group-hover:opacity-100 transition-opacity flex-shrink-0"></i>
                     <div>
@@ -951,6 +235,7 @@
                         <p class="text-[0.62rem] font-semibold uppercase tracking-widest opacity-75 mt-0.5">Call Us Now</p>
                     </div>
                 </a>
+
             </div>
         </div>
     </div>
@@ -958,52 +243,35 @@
     <!-- ═══════════════════════════════════════════════
          WHO WE ARE
     ═══════════════════════════════════════════════ -->
-    <section id="about" class="py-24 md:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="about" class="section-py bg-white">
+        <div class="container">
             <div class="flex flex-col lg:flex-row gap-16 xl:gap-28 items-center">
 
                 <!-- Image mosaic -->
                 <div class="w-full lg:w-[48%] grid grid-cols-2 gap-3 reveal">
                     <div class="img-reveal">
                         <div class="accent-line"></div>
-                        <img src="images/who-we-are1.webp"
-                             alt="Technician inspecting a vehicle at Real Car Services"
-                             class="w-full h-56 md:h-72"
-                             loading="lazy">
+                        <img src="images/who-we-are1.webp" alt="Technician inspecting a vehicle at Real Car Services" class="w-full h-56 md:h-72" loading="lazy">
                     </div>
                     <div class="img-reveal d1">
                         <div class="accent-line"></div>
-                        <img src="images/who-we-are2.webp"
-                             alt="Professional vehicle servicing"
-                             class="w-full h-56 md:h-72 mosaic-2"
-                             loading="lazy">
+                        <img src="images/who-we-are2.webp" alt="Professional vehicle servicing" class="w-full h-56 md:h-72 mosaic-2" loading="lazy">
                     </div>
                     <div class="img-reveal d2">
                         <div class="accent-line"></div>
-                        <img src="images/who-we-are3.webp"
-                             alt="Engine inspection in progress"
-                             class="w-full h-56 md:h-72 mosaic-3"
-                             loading="lazy">
+                        <img src="images/who-we-are3.webp" alt="Engine inspection in progress" class="w-full h-56 md:h-72 mosaic-3" loading="lazy">
                     </div>
                     <div class="img-reveal d3">
                         <div class="accent-line"></div>
-                        <img src="images/who-we-are4.webp"
-                             alt="Workshop tools and equipment"
-                             class="w-full h-56 md:h-72"
-                             loading="lazy">
+                        <img src="images/who-we-are4.webp" alt="Workshop tools and equipment" class="w-full h-56 md:h-72" loading="lazy">
                     </div>
                 </div>
 
                 <!-- Text -->
                 <div class="w-full lg:w-[52%] reveal">
                     <p class="section-label mb-5">Our Story</p>
-
-                    <h2 class="font-display text-3xl md:text-4xl lg:text-[2.8rem] font-extrabold leading-tight mb-5"
-                        style="color:#364225">
-                        Who We Are
-                    </h2>
-
-                    <div class="w-10 h-1 mb-7 rounded-full" style="background:#f37500"></div>
+                    <h2 class="section-heading mb-5">Who We Are</h2>
+                    <div class="divider-bar"></div>
 
                     <p class="text-gray-600 text-[0.95rem] leading-[1.8] mb-5">
                         At Real Car Services, we pride ourselves on being Pretoria's leading car maintenance provider. With years of hands-on experience and a team of skilled mechanics, we are committed to delivering complete excellence in maintenance, repairs, and diagnostics.
@@ -1012,32 +280,28 @@
                         Our ultimate goal is to ensure the reliability, safety, and optimal performance of your vehicle — while delivering an unparalleled customer experience at every visit.
                     </p>
 
-                    <!-- Mini feature list -->
                     <ul class="space-y-3 mb-10">
-                        <li class="flex items-center gap-3 text-sm font-medium" style="color:#4d5d36">
-                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0"
-                                  style="background:rgba(243,117,0,0.12)">
-                                <i class="fas fa-check text-[0.6rem]" style="color:#f37500"></i>
+                        <li class="flex items-center gap-3 text-sm font-medium text-green">
+                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 bg-orange/10">
+                                <i class="fas fa-check text-[0.6rem] text-orange"></i>
                             </span>
                             Expert mechanics trained on all makes and models
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-medium" style="color:#4d5d36">
-                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0"
-                                  style="background:rgba(243,117,0,0.12)">
-                                <i class="fas fa-check text-[0.6rem]" style="color:#f37500"></i>
+                        <li class="flex items-center gap-3 text-sm font-medium text-green">
+                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 bg-orange/10">
+                                <i class="fas fa-check text-[0.6rem] text-orange"></i>
                             </span>
                             State-of-the-art diagnostic equipment
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-medium" style="color:#4d5d36">
-                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0"
-                                  style="background:rgba(243,117,0,0.12)">
-                                <i class="fas fa-check text-[0.6rem]" style="color:#f37500"></i>
+                        <li class="flex items-center gap-3 text-sm font-medium text-green">
+                            <span class="w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0 bg-orange/10">
+                                <i class="fas fa-check text-[0.6rem] text-orange"></i>
                             </span>
                             Transparent pricing — no hidden costs
                         </li>
                     </ul>
 
-                    <a href="#quote" class="btn-primary">
+                    <a href="#quote" class="btn btn-primary">
                         Book Your Service <i class="fas fa-arrow-right text-xs"></i>
                     </a>
                 </div>
@@ -1049,23 +313,17 @@
     <!-- ═══════════════════════════════════════════════
          WHY CHOOSE US
     ═══════════════════════════════════════════════ -->
-    <section id="why-us" style="background:#f8f8f6" class="py-24 md:py-32">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="why-us" class="section-py bg-offwhite">
+        <div class="container">
             <div class="flex flex-col lg:flex-row-reverse gap-16 xl:gap-28 items-center">
 
-                <!-- Image with badge -->
+                <!-- Image + badge -->
                 <div class="w-full lg:w-[46%] relative reveal">
                     <div class="img-reveal from-right">
                         <div class="accent-line"></div>
-                        <img src="images/why-choose-us.webp"
-                             alt="Why choose Real Car Services — quality and trust"
-                             class="w-full h-[360px] md:h-[480px] object-cover"
-                             loading="lazy">
+                        <img src="images/why-choose-us.webp" alt="Why choose Real Car Services — quality and trust" class="w-full h-[360px] md:h-[480px] object-cover" loading="lazy">
                     </div>
-
-                    <!-- Experience badge -->
-                    <div class="why-badge absolute -bottom-5 -left-0 md:-left-6 flex items-center gap-4 px-6 py-5"
-                         style="background:#f37500">
+                    <div class="why-badge absolute -bottom-5 -left-0 md:-left-6 flex items-center gap-4 px-6 py-5 bg-orange">
                         <i class="fas fa-award text-3xl text-white opacity-90"></i>
                         <div class="text-white">
                             <p class="text-3xl font-display font-extrabold leading-none">5+</p>
@@ -1077,13 +335,8 @@
                 <!-- Text -->
                 <div class="w-full lg:w-[54%] pt-10 lg:pt-0 reveal">
                     <p class="section-label mb-5">Our Promise</p>
-
-                    <h2 class="font-display text-3xl md:text-4xl lg:text-[2.8rem] font-extrabold leading-tight mb-5"
-                        style="color:#364225">
-                        Why Choose Us?
-                    </h2>
-
-                    <div class="w-10 h-1 mb-7 rounded-full" style="background:#f37500"></div>
+                    <h2 class="section-heading mb-5">Why Choose Us?</h2>
+                    <div class="divider-bar"></div>
 
                     <p class="text-gray-600 text-[0.95rem] leading-[1.8] mb-5">
                         We pride ourselves on being your trusted automotive partner. With our team of skilled mechanics, state-of-the-art diagnostics tools, and an unwavering commitment to customer satisfaction, we ensure top-notch service every time.
@@ -1092,43 +345,38 @@
                         We offer reliable and affordable car maintenance, repairs, and diagnostics — backed by years of experience. Our transparent approach, attention to detail, and personalised care set us apart from the rest.
                     </p>
 
-                    <!-- Why-us pills -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                        <div class="flex items-start gap-3 p-4 bg-white border border-gray-100"
-                             style="border-left: 3px solid #f37500">
-                            <i class="fas fa-shield-alt mt-0.5 flex-shrink-0" style="color:#4d5d36"></i>
+                        <div class="feature-pill">
+                            <i class="fas fa-shield-alt mt-0.5 flex-shrink-0 text-green"></i>
                             <div>
-                                <p class="font-semibold text-sm mb-0.5" style="color:#364225">Quality Guaranteed</p>
+                                <p class="font-semibold text-sm mb-0.5 text-green-dark">Quality Guaranteed</p>
                                 <p class="text-gray-500 text-xs leading-relaxed">Every job is done right the first time.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-3 p-4 bg-white border border-gray-100"
-                             style="border-left: 3px solid #f37500">
-                            <i class="fas fa-comments mt-0.5 flex-shrink-0" style="color:#4d5d36"></i>
+                        <div class="feature-pill">
+                            <i class="fas fa-comments mt-0.5 flex-shrink-0 text-green"></i>
                             <div>
-                                <p class="font-semibold text-sm mb-0.5" style="color:#364225">Transparent Communication</p>
+                                <p class="font-semibold text-sm mb-0.5 text-green-dark">Transparent Communication</p>
                                 <p class="text-gray-500 text-xs leading-relaxed">We keep you informed throughout the process.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-3 p-4 bg-white border border-gray-100"
-                             style="border-left: 3px solid #f37500">
-                            <i class="fas fa-tag mt-0.5 flex-shrink-0" style="color:#4d5d36"></i>
+                        <div class="feature-pill">
+                            <i class="fas fa-tag mt-0.5 flex-shrink-0 text-green"></i>
                             <div>
-                                <p class="font-semibold text-sm mb-0.5" style="color:#364225">Affordable Pricing</p>
+                                <p class="font-semibold text-sm mb-0.5 text-green-dark">Affordable Pricing</p>
                                 <p class="text-gray-500 text-xs leading-relaxed">Competitive rates with no hidden fees.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-3 p-4 bg-white border border-gray-100"
-                             style="border-left: 3px solid #f37500">
-                            <i class="fas fa-clock mt-0.5 flex-shrink-0" style="color:#4d5d36"></i>
+                        <div class="feature-pill">
+                            <i class="fas fa-clock mt-0.5 flex-shrink-0 text-green"></i>
                             <div>
-                                <p class="font-semibold text-sm mb-0.5" style="color:#364225">Fast Turnaround</p>
+                                <p class="font-semibold text-sm mb-0.5 text-green-dark">Fast Turnaround</p>
                                 <p class="text-gray-500 text-xs leading-relaxed">Get your vehicle back on the road quickly.</p>
                             </div>
                         </div>
                     </div>
 
-                    <a href="#workshop" class="btn-green">
+                    <a href="#workshop" class="btn btn-green">
                         Contact Us <i class="fas fa-arrow-right text-xs"></i>
                     </a>
                 </div>
@@ -1140,202 +388,111 @@
     <!-- ═══════════════════════════════════════════════
          SERVICES
     ═══════════════════════════════════════════════ -->
-    <section id="services" class="py-24 md:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="services" class="section-py bg-white">
+        <div class="container">
 
-            <!-- Header -->
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
                 <div class="max-w-xl">
                     <p class="section-label mb-5">Our Expertise</p>
-                    <h2 class="font-display text-3xl md:text-4xl lg:text-[2.8rem] font-extrabold leading-tight"
-                        style="color:#364225">
-                        Comprehensive Services
-                    </h2>
+                    <h2 class="section-heading">Comprehensive Services</h2>
                 </div>
                 <p class="text-gray-500 text-sm leading-relaxed max-w-sm md:text-right">
                     Expert automotive care in Pretoria and surrounding areas. Skilled technicians for every make and model.
                 </p>
             </div>
 
-            <!-- Cards grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
 
-                <!-- 1 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-car text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-car text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Vehicle Maintenance</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Comprehensive vehicle maintenance including routine inspections, fluid checks, and filter replacements. Keep your vehicle running smoothly and extend its lifespan.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Vehicle Maintenance</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Comprehensive vehicle maintenance including routine inspections, fluid checks, and filter replacements. Keep your vehicle running smoothly and extend its lifespan.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Schedule Now <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Schedule Now <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 2 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-oil-can text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-oil-can text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Vehicle Service</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Top-notch vehicle servicing including oil changes, tyre rotations, and brake inspections. Ensure optimal performance and safety on every road.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Vehicle Service</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Top-notch vehicle servicing including oil changes, tyre rotations, and brake inspections. Ensure optimal performance and safety on every road.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Book Now <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Book Now <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 3 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-tools text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-tools text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Vehicle Repair</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Skilled technicians specialising in vehicle repairs — diagnosing and fixing mechanical and electrical issues. We get your vehicle back on the road quickly.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Vehicle Repair</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Skilled technicians specialising in vehicle repairs — diagnosing and fixing mechanical and electrical issues. We get your vehicle back on the road quickly.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Contact Us <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Contact Us <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 4 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-cogs text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-cogs text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Engine Repairs</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Precision engine diagnostics and repairs to restore performance and efficiency. Don't let engine problems hold you back — we handle it with expertise.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Engine Repairs</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Precision engine diagnostics and repairs to restore performance and efficiency. Don't let engine problems hold you back — we handle it with expertise.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Get a Free Quote <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Get a Free Quote <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 5 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-cog text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-cog text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Gearbox Services</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Designed to maintain the reliability and performance of your vehicle's transmission. We ensure smooth shifting and prolonged gearbox life.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Gearbox Services</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Designed to maintain the reliability and performance of your vehicle's transmission. We ensure smooth shifting and prolonged gearbox life.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Contact Us <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Contact Us <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 6 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-dot-circle text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-dot-circle text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Brake System Maintenance</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Expert brake system maintenance for optimal braking performance and safety. Our technicians inspect, repair, and replace brake components as needed.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Brake System Maintenance</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Expert brake system maintenance for optimal braking performance and safety. Our technicians inspect, repair, and replace brake components as needed.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Contact Us <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Contact Us <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 7 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-car-battery text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-car-battery text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Alternators</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Trusted alternator repair and replacement ensuring the proper functioning of your vehicle's electrical system. Don't let a faulty alternator leave you stranded.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Alternators</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Trusted alternator repair and replacement ensuring the proper functioning of your vehicle's electrical system. Don't let a faulty alternator leave you stranded.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Contact Us <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Contact Us <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 8 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-shield-alt text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-shield-alt text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Preventative Maintenance</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Advanced diagnostics to accurately identify issues with engine performance, electrical systems, and more — before they become costly problems.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Preventative Maintenance</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Advanced diagnostics to accurately identify issues with engine performance, electrical systems, and more — before they become costly problems.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Get a Free Quote <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Get a Free Quote <i class="fas fa-arrow-right"></i></a>
                 </div>
 
-                <!-- 9 -->
-                <div class="svc-card p-7 flex flex-col gap-5">
-                    <div class="svc-icon">
-                        <i class="fas fa-truck-pickup text-base"></i>
-                    </div>
+                <div class="svc-card">
+                    <div class="icon-box icon-box-green"><i class="fas fa-truck-pickup text-base"></i></div>
                     <div class="flex-1">
-                        <h3 class="font-semibold text-base mb-2" style="color:#364225">Differential Unit</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Specialist differential unit services ensuring optimal power distribution and smooth operation. Don't neglect this vital component — let us take care of it.
-                        </p>
+                        <h3 class="font-semibold text-base mb-2 text-green-dark">Differential Unit</h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">Specialist differential unit services ensuring optimal power distribution and smooth operation. Don't neglect this vital component — let us take care of it.</p>
                     </div>
-                    <a href="#quote"
-                       class="svc-link mt-auto"
-                       style="color:#f37500">
-                        Book Now <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <a href="#quote" class="svc-link">Book Now <i class="fas fa-arrow-right"></i></a>
                 </div>
 
             </div>
 
             <!-- CTA bar -->
-            <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-5 p-7 md:p-9"
-                 style="background:#f8f8f6; border: 1px solid #ebebea">
+            <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-5 p-7 md:p-9 bg-offwhite border border-[#ebebea]">
                 <div>
-                    <p class="font-display font-extrabold text-lg md:text-xl mb-1" style="color:#364225">
-                        Not sure which service you need?
-                    </p>
-                    <p class="text-gray-500 text-sm">
-                        Call us and we'll guide you — free consultation, no pressure.
-                    </p>
+                    <p class="font-display font-extrabold text-lg md:text-xl mb-1 text-green-dark">Not sure which service you need?</p>
+                    <p class="text-gray-500 text-sm">Call us and we'll guide you — free consultation, no pressure.</p>
                 </div>
-                <a href="tel:0658184509" class="btn-primary flex-shrink-0">
+                <a href="tel:0658184509" class="btn btn-primary flex-shrink-0">
                     <i class="fas fa-phone-alt text-xs"></i> 065 818 4509
                 </a>
             </div>
@@ -1346,16 +503,12 @@
     <!-- ═══════════════════════════════════════════════
          FAQ
     ═══════════════════════════════════════════════ -->
-    <section id="faq" style="background:#f8f8f6" class="py-24 md:py-28">
+    <section id="faq" class="bg-offwhite py-24 md:py-28">
         <div class="max-w-3xl mx-auto px-6 lg:px-8">
 
             <div class="text-center mb-14 reveal">
-                <p class="section-label-center mb-5">
-                    Frequently Asked Questions
-                </p>
-                <h2 class="font-display text-3xl md:text-4xl font-extrabold" style="color:#364225">
-                    Got Questions?
-                </h2>
+                <p class="section-label-center mb-5">Frequently Asked Questions</p>
+                <h2 class="section-heading">Got Questions?</h2>
                 <p class="text-gray-500 text-sm mt-3 max-w-md mx-auto leading-relaxed">
                     Here are the most common questions we get from our customers.
                 </p>
@@ -1365,13 +518,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            How often should I get my vehicle serviced?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">How often should I get my vehicle serviced?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         It is generally recommended to have your vehicle serviced every 6 months or every 8,000 to 12,000 kilometres, depending on the manufacturer's guidelines.
@@ -1380,13 +528,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            What is included in a vehicle maintenance service?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">What is included in a vehicle maintenance service?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Vehicle maintenance services typically include oil and filter changes, tyre rotations, fluid checks, and inspection of various components for wear and tear.
@@ -1395,13 +538,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            How do I know if my car needs a repair?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">How do I know if my car needs a repair?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         If you notice any unusual sounds, vibrations, warning lights, or a decrease in performance, it's a good indication that your car may need a repair.
@@ -1410,13 +548,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            Can you service vehicles from all manufacturers?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">Can you service vehicles from all manufacturers?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Yes, our experienced mechanics are trained to service vehicles from a wide range of manufacturers, ensuring reliable repairs and maintenance.
@@ -1425,13 +558,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            How long does an engine repair usually take?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">How long does an engine repair usually take?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         The duration of an engine repair depends on the complexity of the issue. Simple repairs can be completed within a few hours, while major repairs may take longer.
@@ -1440,13 +568,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            What is involved in a brake system inspection?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">What is involved in a brake system inspection?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         A brake system inspection involves checking brake pads, rotors, callipers, brake lines, and fluid levels to ensure proper functioning and identify any issues.
@@ -1455,13 +578,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            How often should I replace my car's air filter?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">How often should I replace my car's air filter?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Air filters should be replaced every 20,000 to 24,000 kilometres or as recommended by the vehicle manufacturer to maintain optimal engine performance.
@@ -1470,13 +588,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            Can you diagnose and fix electrical issues in vehicles?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">Can you diagnose and fix electrical issues in vehicles?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Yes, our skilled technicians are trained to diagnose and repair various electrical issues, including faulty wiring, battery problems, and malfunctioning components.
@@ -1485,13 +598,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            Do you offer warranty on your repairs?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">Do you offer warranty on your repairs?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Yes, we stand behind the quality of our repairs and offer warranty coverage on parts and labour to provide our customers with peace of mind.
@@ -1500,13 +608,8 @@
 
                 <details class="faq-item reveal">
                     <summary class="flex justify-between items-center px-6 py-5">
-                        <span class="font-semibold text-sm pr-6" style="color:#364225">
-                            Can I schedule a service appointment online?
-                        </span>
-                        <span class="faq-icon flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full border"
-                              style="color:#f37500; border-color: rgba(243,117,0,0.3); background: rgba(243,117,0,0.06)">
-                            <i class="fas fa-plus text-xs"></i>
-                        </span>
+                        <span class="font-semibold text-sm pr-6 text-green-dark">Can I schedule a service appointment online?</span>
+                        <span class="faq-icon"><i class="fas fa-plus text-xs"></i></span>
                     </summary>
                     <div class="px-6 pb-5 pt-1 text-gray-500 text-sm leading-[1.8]">
                         Absolutely! You can easily schedule a service appointment on our website or give us a call, and our friendly staff will assist you in booking a convenient time.
@@ -1520,25 +623,18 @@
     <!-- ═══════════════════════════════════════════════
          REQUEST A QUOTE
     ═══════════════════════════════════════════════ -->
-    <section id="quote" class="py-24 md:py-32 relative overflow-hidden"
-             style="background:#364225">
+    <section id="quote" class="section-py relative overflow-hidden bg-green-dark">
 
-        <!-- Subtle texture overlay -->
         <div class="absolute inset-0 opacity-5 pointer-events-none"
-             style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
-
-        <!-- Decorative circle -->
-        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-10"
-             style="background: #f37500; filter: blur(80px)"></div>
+             style="background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px"></div>
+        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-10 bg-orange blur-[80px]"></div>
 
         <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row gap-16 lg:gap-20 items-start">
 
-                <!-- Left: heading + info -->
+                <!-- Left -->
                 <div class="w-full lg:w-5/12 reveal">
-                    <p class="section-label mb-5" style="color:#f37500">
-                        Get In Touch
-                    </p>
+                    <p class="section-label mb-5">Get In Touch</p>
                     <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white leading-tight mb-5">
                         Request a Free&nbsp;Quote
                     </h2>
@@ -1546,28 +642,22 @@
                         Fill in the form and our team will get back to you shortly with a no-obligation quote tailored to your vehicle's needs.
                     </p>
 
-                    <!-- Info pills -->
                     <ul class="space-y-4">
                         <li class="flex items-center gap-4 text-gray-300 text-sm">
-                            <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                                 style="background: rgba(243,117,0,0.15)">
-                                <i class="fas fa-phone-alt text-xs" style="color:#f37500"></i>
+                            <div class="icon-box icon-box-orange flex-shrink-0">
+                                <i class="fas fa-phone-alt text-xs text-orange"></i>
                             </div>
-                            <a href="tel:0658184509"
-                               class="hover:text-white transition-colors">065 818 4509</a>
+                            <a href="tel:0658184509" class="hover:text-white transition-colors">065 818 4509</a>
                         </li>
                         <li class="flex items-center gap-4 text-gray-300 text-sm">
-                            <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                                 style="background: rgba(243,117,0,0.15)">
-                                <i class="fas fa-envelope text-xs" style="color:#f37500"></i>
+                            <div class="icon-box icon-box-orange flex-shrink-0">
+                                <i class="fas fa-envelope text-xs text-orange"></i>
                             </div>
-                            <a href="mailto:repairs@realcarservices.co.za"
-                               class="hover:text-white transition-colors break-all">repairs@realcarservices.co.za</a>
+                            <a href="mailto:repairs@realcarservices.co.za" class="hover:text-white transition-colors break-all">repairs@realcarservices.co.za</a>
                         </li>
                         <li class="flex items-start gap-4 text-gray-300 text-sm">
-                            <div class="w-9 h-9 flex items-center justify-center flex-shrink-0 mt-0.5"
-                                 style="background: rgba(243,117,0,0.15)">
-                                <i class="fas fa-map-marker-alt text-xs" style="color:#f37500"></i>
+                            <div class="icon-box icon-box-orange flex-shrink-0 mt-0.5">
+                                <i class="fas fa-map-marker-alt text-xs text-orange"></i>
                             </div>
                             <span>369 Paul Kruger Street,<br>Capital Park, Pretoria. 0084</span>
                         </li>
@@ -1580,42 +670,27 @@
                         <form novalidate>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-7 mb-7">
                                 <div>
-                                    <label class="block text-[0.65rem] font-bold uppercase tracking-widest mb-2"
-                                           style="color:#9ca3af">Name *</label>
-                                    <input type="text" name="name" required
-                                           placeholder="Your full name"
-                                           class="form-field">
+                                    <label class="form-label">Name *</label>
+                                    <input type="text" name="name" required placeholder="Your full name" class="form-field">
                                 </div>
                                 <div>
-                                    <label class="block text-[0.65rem] font-bold uppercase tracking-widest mb-2"
-                                           style="color:#9ca3af">Email *</label>
-                                    <input type="email" name="email" required
-                                           placeholder="you@example.com"
-                                           class="form-field">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" name="email" required placeholder="you@example.com" class="form-field">
                                 </div>
                                 <div>
-                                    <label class="block text-[0.65rem] font-bold uppercase tracking-widest mb-2"
-                                           style="color:#9ca3af">Car Type</label>
-                                    <input type="text" name="car_type"
-                                           placeholder="e.g. BMW X5 2019"
-                                           class="form-field">
+                                    <label class="form-label">Car Type</label>
+                                    <input type="text" name="car_type" placeholder="e.g. BMW X5 2019" class="form-field">
                                 </div>
                                 <div>
-                                    <label class="block text-[0.65rem] font-bold uppercase tracking-widest mb-2"
-                                           style="color:#9ca3af">Car Problem</label>
-                                    <input type="text" name="car_problem"
-                                           placeholder="e.g. Engine ticking"
-                                           class="form-field">
+                                    <label class="form-label">Car Problem</label>
+                                    <input type="text" name="car_problem" placeholder="e.g. Engine ticking" class="form-field">
                                 </div>
                             </div>
                             <div class="mb-9">
-                                <label class="block text-[0.65rem] font-bold uppercase tracking-widest mb-2"
-                                       style="color:#9ca3af">Message</label>
-                                <textarea name="message" rows="4"
-                                          placeholder="Tell us more about your vehicle and what you need..."
-                                          class="form-field resize-none"></textarea>
+                                <label class="form-label">Message</label>
+                                <textarea name="message" rows="4" placeholder="Tell us more about your vehicle and what you need..." class="form-field resize-none"></textarea>
                             </div>
-                            <button type="submit" class="btn-primary w-full sm:w-auto justify-center">
+                            <button type="submit" class="btn btn-primary w-full sm:w-auto justify-center">
                                 Send Message <i class="fas fa-paper-plane text-xs"></i>
                             </button>
                         </form>
@@ -1629,66 +704,49 @@
     <!-- ═══════════════════════════════════════════════
          WORKSHOP / CONTACT
     ═══════════════════════════════════════════════ -->
-    <section id="workshop" class="py-24 md:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="workshop" class="section-py bg-white">
+        <div class="container">
 
-            <!-- Hours + appointment blocks -->
+            <!-- Hours + appointment cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
 
-                <!-- Free Appointment -->
-                <div class="reveal p-8 md:p-10 border border-gray-100"
-                     style="border-top: 3px solid #f37500; background: #f8f8f6">
+                <div class="reveal p-8 md:p-10 border border-gray-100 bg-offwhite" style="border-top:3px solid #f37500">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-9 h-9 flex items-center justify-center" style="background: rgba(243,117,0,0.1)">
-                            <i class="fas fa-calendar-check text-sm" style="color:#f37500"></i>
-                        </div>
-                        <h3 class="font-display font-extrabold text-lg" style="color:#364225">Free Appointment</h3>
+                        <div class="icon-box icon-box-orange"><i class="fas fa-calendar-check text-sm text-orange"></i></div>
+                        <h3 class="font-display font-extrabold text-lg text-green-dark">Free Appointment</h3>
                     </div>
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3 text-gray-600 text-sm">
-                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0"
-                                  style="color:#f37500">
-                                <i class="fas fa-check text-xs"></i>
-                            </span>
+                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0 text-orange"><i class="fas fa-check text-xs"></i></span>
                             Free Diagnosis &amp; Brake Checks
                         </li>
                         <li class="flex items-center gap-3 text-gray-600 text-sm">
-                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0"
-                                  style="color:#f37500">
-                                <i class="fas fa-check text-xs"></i>
-                            </span>
+                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0 text-orange"><i class="fas fa-check text-xs"></i></span>
                             Expect a free call back from us
                         </li>
                         <li class="flex items-center gap-3 text-gray-600 text-sm">
-                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0"
-                                  style="color:#f37500">
-                                <i class="fas fa-check text-xs"></i>
-                            </span>
+                            <span class="w-4 h-4 flex items-center justify-center flex-shrink-0 text-orange"><i class="fas fa-check text-xs"></i></span>
                             Send your message with photos or videos
                         </li>
                     </ul>
                 </div>
 
-                <!-- Working Hours -->
-                <div class="reveal p-8 md:p-10 border border-gray-100"
-                     style="border-top: 3px solid #f37500; background: #f8f8f6">
+                <div class="reveal p-8 md:p-10 border border-gray-100 bg-offwhite" style="border-top:3px solid #f37500">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-9 h-9 flex items-center justify-center" style="background: rgba(243,117,0,0.1)">
-                            <i class="far fa-clock text-sm" style="color:#f37500"></i>
-                        </div>
-                        <h3 class="font-display font-extrabold text-lg" style="color:#364225">Working Hours</h3>
+                        <div class="icon-box icon-box-orange"><i class="far fa-clock text-sm text-orange"></i></div>
+                        <h3 class="font-display font-extrabold text-lg text-green-dark">Working Hours</h3>
                     </div>
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3 text-gray-600 text-sm">
-                            <i class="far fa-clock flex-shrink-0 w-4 text-center" style="color:#f37500"></i>
+                            <i class="far fa-clock flex-shrink-0 w-4 text-center text-orange"></i>
                             Monday – Friday: 7:30am – 6:00pm
                         </li>
                         <li class="flex items-center gap-3 text-gray-600 text-sm">
-                            <i class="far fa-clock flex-shrink-0 w-4 text-center" style="color:#f37500"></i>
+                            <i class="far fa-clock flex-shrink-0 w-4 text-center text-orange"></i>
                             Saturday: 7:30am – 5:00pm
                         </li>
-                        <li class="flex items-center gap-3 text-sm font-semibold" style="color:#4d5d36">
-                            <i class="fas fa-headset flex-shrink-0 w-4 text-center" style="color:#f37500"></i>
+                        <li class="flex items-center gap-3 text-sm font-semibold text-green">
+                            <i class="fas fa-headset flex-shrink-0 w-4 text-center text-orange"></i>
                             Emergency: 24 Hours / 7 Days
                         </li>
                     </ul>
@@ -1699,67 +757,44 @@
             <!-- Our Workshop -->
             <div class="reveal">
                 <p class="section-label mb-5">Visit Us</p>
-                <h2 class="font-display text-3xl md:text-4xl font-extrabold leading-tight mb-12"
-                    style="color:#364225">
-                    Our Workshop
-                </h2>
+                <h2 class="section-heading mb-12">Our Workshop</h2>
             </div>
 
-            <!-- Workshop image + contact side-by-side -->
             <div class="flex flex-col lg:flex-row border border-gray-100 reveal overflow-hidden">
 
                 <!-- Image -->
                 <div class="w-full lg:w-1/2 workshop-img-wrap img-reveal from-bottom">
                     <div class="accent-line"></div>
-                    <img src="images/our-workshop.webp"
-                         alt="Real Car Services workshop in Capital Park, Pretoria"
-                         class="w-full object-cover"
-                         style="height: 300px; min-height: 260px;"
-                         loading="lazy">
+                    <img src="images/our-workshop.webp" alt="Real Car Services workshop in Capital Park, Pretoria" class="w-full object-cover" style="height:300px;min-height:260px" loading="lazy">
                 </div>
 
                 <!-- Contact details -->
-                <div class="w-full lg:w-1/2 p-10 md:p-14 flex flex-col justify-center"
-                     style="background:#f8f8f6">
+                <div class="w-full lg:w-1/2 p-10 md:p-14 flex flex-col justify-center bg-offwhite">
                     <ul class="space-y-8">
 
                         <li class="flex items-start gap-5">
-                            <div class="contact-icon flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-sm"></i>
-                            </div>
+                            <div class="icon-box icon-box-solid flex-shrink-0"><i class="fas fa-map-marker-alt text-sm"></i></div>
                             <div>
                                 <p class="text-[0.65rem] font-bold uppercase tracking-widest mb-1 text-gray-400">Address</p>
-                                <p class="font-semibold text-[0.95rem] leading-snug" style="color:#364225">
+                                <p class="font-semibold text-[0.95rem] leading-snug text-green-dark">
                                     369 Paul Kruger Street,<br>Capital Park, Pretoria. 0084
                                 </p>
                             </div>
                         </li>
 
                         <li class="flex items-start gap-5">
-                            <div class="contact-icon flex-shrink-0">
-                                <i class="fas fa-phone-alt text-sm"></i>
-                            </div>
+                            <div class="icon-box icon-box-solid flex-shrink-0"><i class="fas fa-phone-alt text-sm"></i></div>
                             <div>
                                 <p class="text-[0.65rem] font-bold uppercase tracking-widest mb-1 text-gray-400">Phone</p>
-                                <a href="tel:0658184509"
-                                   class="font-semibold text-[0.95rem] hover-orange transition-colors"
-                                   style="color:#364225">
-                                    065 818 4509
-                                </a>
+                                <a href="tel:0658184509" class="font-semibold text-[0.95rem] hover-orange transition-colors text-green-dark">065 818 4509</a>
                             </div>
                         </li>
 
                         <li class="flex items-start gap-5">
-                            <div class="contact-icon flex-shrink-0">
-                                <i class="fas fa-envelope text-sm"></i>
-                            </div>
+                            <div class="icon-box icon-box-solid flex-shrink-0"><i class="fas fa-envelope text-sm"></i></div>
                             <div>
                                 <p class="text-[0.65rem] font-bold uppercase tracking-widest mb-1 text-gray-400">Email</p>
-                                <a href="mailto:repairs@realcarservices.co.za"
-                                   class="font-semibold text-[0.95rem] hover-orange transition-colors break-all"
-                                   style="color:#364225">
-                                    repairs@realcarservices.co.za
-                                </a>
+                                <a href="mailto:repairs@realcarservices.co.za" class="font-semibold text-[0.95rem] hover-orange transition-colors break-all text-green-dark">repairs@realcarservices.co.za</a>
                             </div>
                         </li>
 
@@ -1768,16 +803,11 @@
             </div>
 
             <!-- Map -->
-            <div class="w-full overflow-hidden border-x border-b border-gray-100 reveal"
-                 style="height: 380px">
+            <div class="w-full overflow-hidden border-x border-b border-gray-100 reveal" style="height:380px">
                 <iframe
                     src="https://maps.google.com/maps?q=369%20Paul%20Kruger%20Street,%20Capital%20Park,%20Pretoria&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                    width="100%"
-                    height="100%"
-                    style="border:0; display:block;"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    width="100%" height="100%" style="border:0;display:block"
+                    allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                     title="Real Car Services location — 369 Paul Kruger Street, Capital Park, Pretoria">
                 </iframe>
             </div>
@@ -1788,117 +818,61 @@
     <!-- ═══════════════════════════════════════════════
          GALLERY
     ═══════════════════════════════════════════════ -->
-    <section id="gallery" class="py-24 md:py-32">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <section id="gallery" class="section-py">
+        <div class="container">
 
-            <!-- Header -->
             <div class="text-center mb-14 reveal">
-                <p class="section-label-center mb-5" style="color:#f37500">
-                    Our Work
-                </p>
+                <p class="section-label-center mb-5">Our Work</p>
                 <h2 class="font-display text-3xl md:text-4xl font-extrabold text-white leading-tight">
-                    Workshop <span style="color:#f37500">Gallery</span>
+                    Workshop <span class="text-orange">Gallery</span>
                 </h2>
                 <p class="text-gray-500 text-sm mt-4 max-w-md mx-auto leading-relaxed">
                     A look inside our workshop and the vehicles we care for — quality workmanship in every job.
                 </p>
             </div>
 
-            <!-- Grid -->
             <div class="gallery-grid">
 
-                <!-- Featured large item -->
                 <div class="gallery-item featured reveal" data-src="images/header-image.webp">
-                    <img src="images/header-image.webp"
-                         alt="Real Car Services — professional automotive workshop"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/header-image.webp" alt="Real Car Services — professional automotive workshop" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 2 -->
                 <div class="gallery-item reveal" data-src="images/who-we-are1.webp">
-                    <img src="images/who-we-are1.webp"
-                         alt="Technician inspecting a vehicle"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/who-we-are1.webp" alt="Technician inspecting a vehicle" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 3 -->
                 <div class="gallery-item reveal" data-src="images/who-we-are2.webp">
-                    <img src="images/who-we-are2.webp"
-                         alt="Professional vehicle servicing"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/who-we-are2.webp" alt="Professional vehicle servicing" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 4 -->
                 <div class="gallery-item reveal" data-src="images/why-choose-us.webp">
-                    <img src="images/why-choose-us.webp"
-                         alt="Quality workmanship at Real Car Services"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/why-choose-us.webp" alt="Quality workmanship at Real Car Services" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 5 -->
                 <div class="gallery-item reveal" data-src="images/who-we-are3.webp">
-                    <img src="images/who-we-are3.webp"
-                         alt="Engine inspection in progress"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/who-we-are3.webp" alt="Engine inspection in progress" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 6 -->
                 <div class="gallery-item reveal" data-src="images/who-we-are4.webp">
-                    <img src="images/who-we-are4.webp"
-                         alt="Workshop tools and equipment"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/who-we-are4.webp" alt="Workshop tools and equipment" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
-                <!-- Item 7 — workshop spans tall -->
                 <div class="gallery-item featured-row reveal" data-src="images/our-workshop.webp">
-                    <img src="images/our-workshop.webp"
-                         alt="Real Car Services workshop — Capital Park, Pretoria"
-                         loading="lazy">
-                    <div class="gallery-icon">
-                        <div class="gallery-icon-inner">
-                            <i class="fas fa-expand-alt"></i>
-                        </div>
-                    </div>
+                    <img src="images/our-workshop.webp" alt="Real Car Services workshop — Capital Park, Pretoria" loading="lazy">
+                    <div class="gallery-icon"><div class="gallery-icon-inner"><i class="fas fa-expand-alt"></i></div></div>
                 </div>
 
             </div>
 
-            <!-- CTA -->
             <div class="text-center mt-14 reveal">
                 <p class="text-gray-500 text-sm mb-5">Want to see your vehicle get the treatment it deserves?</p>
-                <a href="#quote" class="btn-primary">
-                    Book Your Service <i class="fas fa-arrow-right text-xs"></i>
-                </a>
+                <a href="#quote" class="btn btn-primary">Book Your Service <i class="fas fa-arrow-right text-xs"></i></a>
             </div>
 
         </div>
@@ -1906,48 +880,39 @@
 
     <!-- Lightbox -->
     <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-        <button id="lightbox-close" aria-label="Close image viewer">
-            <i class="fas fa-times"></i>
-        </button>
+        <button id="lightbox-close" aria-label="Close image viewer"><i class="fas fa-times"></i></button>
         <img id="lightbox-img" src="" alt="Gallery image enlarged">
     </div>
 
     <!-- ═══════════════════════════════════════════════
          FOOTER
     ═══════════════════════════════════════════════ -->
-    <footer style="background:#0e0f0d; border-top: 3px solid #f37500">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20">
+    <footer class="bg-dark border-t-[3px] border-orange">
+        <div class="container py-16 md:py-20">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-14">
 
-                <!-- Brand column -->
+                <!-- Brand -->
                 <div class="sm:col-span-2 lg:col-span-1">
                     <a href="#" class="flex items-center gap-3 mb-5" aria-label="Real Car Services">
-                        <div class="w-9 h-9 flex items-center justify-center flex-shrink-0"
-                             style="background:#4d5d36">
+                        <div class="icon-box icon-box-solid flex-shrink-0">
                             <i class="fas fa-car-side text-white text-xs"></i>
                         </div>
                         <span class="font-display text-base font-extrabold tracking-tight text-white">
-                            Real Car <span style="color:#f37500">Services</span>
+                            Real Car <span class="text-orange">Services</span>
                         </span>
                     </a>
                     <p class="text-gray-500 text-sm leading-relaxed mb-6">
                         Your trusted partner for all automotive maintenance and repair needs in Pretoria. Quality service you can rely on.
                     </p>
                     <div class="flex gap-3">
-                        <a href="#" aria-label="Facebook"
-                           class="social-btn w-9 h-9 flex items-center justify-center border text-gray-500 transition-all duration-200"
-                           style="border-color: rgba(255,255,255,0.1)">
+                        <a href="#" aria-label="Facebook" class="social-btn w-9 h-9 flex items-center justify-center border border-white/10 text-gray-500 transition-all duration-200">
                             <i class="fab fa-facebook-f text-xs"></i>
                         </a>
-                        <a href="#" aria-label="Instagram"
-                           class="social-btn w-9 h-9 flex items-center justify-center border text-gray-500 transition-all duration-200"
-                           style="border-color: rgba(255,255,255,0.1)">
+                        <a href="#" aria-label="Instagram" class="social-btn w-9 h-9 flex items-center justify-center border border-white/10 text-gray-500 transition-all duration-200">
                             <i class="fab fa-instagram text-xs"></i>
                         </a>
-                        <a href="#" aria-label="WhatsApp"
-                           class="social-btn w-9 h-9 flex items-center justify-center border text-gray-500 transition-all duration-200"
-                           style="border-color: rgba(255,255,255,0.1)">
+                        <a href="#" aria-label="WhatsApp" class="social-btn w-9 h-9 flex items-center justify-center border border-white/10 text-gray-500 transition-all duration-200">
                             <i class="fab fa-whatsapp text-xs"></i>
                         </a>
                     </div>
@@ -1957,12 +922,12 @@
                 <div>
                     <h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-600 mb-5">Quick Links</h4>
                     <ul class="space-y-3">
-                        <li><a href="#about"    class="text-gray-500 hover:text-white text-sm transition-colors">About Us</a></li>
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Services</a></li>
-                        <li><a href="#gallery"  class="text-gray-500 hover:text-white text-sm transition-colors">Gallery</a></li>
-                        <li><a href="#faq"      class="text-gray-500 hover:text-white text-sm transition-colors">FAQ</a></li>
-                        <li><a href="#quote"    class="text-gray-500 hover:text-white text-sm transition-colors">Get a Quote</a></li>
-                        <li><a href="#workshop" class="text-gray-500 hover:text-white text-sm transition-colors">Contact</a></li>
+                        <li><a href="#about"    class="footer-link">About Us</a></li>
+                        <li><a href="#services" class="footer-link">Services</a></li>
+                        <li><a href="#gallery"  class="footer-link">Gallery</a></li>
+                        <li><a href="#faq"      class="footer-link">FAQ</a></li>
+                        <li><a href="#quote"    class="footer-link">Get a Quote</a></li>
+                        <li><a href="#workshop" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
 
@@ -1970,11 +935,11 @@
                 <div>
                     <h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-600 mb-5">Services</h4>
                     <ul class="space-y-3">
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Vehicle Maintenance</a></li>
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Engine Repairs</a></li>
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Gearbox Services</a></li>
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Brake System</a></li>
-                        <li><a href="#services" class="text-gray-500 hover:text-white text-sm transition-colors">Alternators</a></li>
+                        <li><a href="#services" class="footer-link">Vehicle Maintenance</a></li>
+                        <li><a href="#services" class="footer-link">Engine Repairs</a></li>
+                        <li><a href="#services" class="footer-link">Gearbox Services</a></li>
+                        <li><a href="#services" class="footer-link">Brake System</a></li>
+                        <li><a href="#services" class="footer-link">Alternators</a></li>
                     </ul>
                 </div>
 
@@ -1983,17 +948,15 @@
                     <h4 class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-600 mb-5">Contact</h4>
                     <ul class="space-y-4">
                         <li class="flex items-center gap-3 text-gray-500 text-sm">
-                            <i class="fas fa-phone-alt w-4 text-center flex-shrink-0" style="color:#f37500"></i>
-                            <a href="tel:0658184509"
-                               class="hover:text-white transition-colors">065 818 4509</a>
+                            <i class="fas fa-phone-alt w-4 text-center flex-shrink-0 text-orange"></i>
+                            <a href="tel:0658184509" class="footer-link">065 818 4509</a>
                         </li>
                         <li class="flex items-center gap-3 text-gray-500 text-sm">
-                            <i class="fas fa-envelope w-4 text-center flex-shrink-0" style="color:#f37500"></i>
-                            <a href="mailto:repairs@realcarservices.co.za"
-                               class="hover:text-white transition-colors break-all">repairs@realcarservices.co.za</a>
+                            <i class="fas fa-envelope w-4 text-center flex-shrink-0 text-orange"></i>
+                            <a href="mailto:repairs@realcarservices.co.za" class="footer-link break-all">repairs@realcarservices.co.za</a>
                         </li>
                         <li class="flex items-start gap-3 text-gray-500 text-sm">
-                            <i class="fas fa-map-marker-alt w-4 text-center flex-shrink-0 mt-0.5" style="color:#f37500"></i>
+                            <i class="fas fa-map-marker-alt w-4 text-center flex-shrink-0 mt-0.5 text-orange"></i>
                             <span>369 Paul Kruger St,<br>Capital Park, Pretoria</span>
                         </li>
                     </ul>
@@ -2001,7 +964,6 @@
 
             </div>
 
-            <!-- Bottom bar -->
             <div id="footer-bottom" class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-600">
                 <p>&copy; 2026 Real Car Services. All Rights Reserved.</p>
                 <p>Built for business by <span class="text-gray-500 font-semibold">Model Softwares</span></p>
@@ -2010,146 +972,7 @@
         </div>
     </footer>
 
-    <!-- ═══════════════════════════════════════════════
-         SCRIPTS
-    ═══════════════════════════════════════════════ -->
-    <script>
-        // ── Mobile menu toggle ──────────────────────────────
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon   = document.getElementById('menu-icon');
-
-        function closeMobileMenu() {
-            mobileMenu.classList.remove('open');
-            menuIcon.classList.replace('fa-times', 'fa-bars');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-
-        menuToggle.addEventListener('click', () => {
-            const isOpen = mobileMenu.classList.toggle('open');
-            menuIcon.classList.toggle('fa-bars',  !isOpen);
-            menuIcon.classList.toggle('fa-times',  isOpen);
-            menuToggle.setAttribute('aria-expanded', String(isOpen));
-        });
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-                closeMobileMenu();
-            }
-        });
-
-        // ── Nav scroll shadow ──────────────────────────────
-        const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            mainNav.classList.toggle('scrolled', window.scrollY > 30);
-        }, { passive: true });
-
-        // ── Intersection observer: reveal on scroll ────────
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.reveal').forEach((el, i) => {
-            // Stagger elements that share the same parent container
-            const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'));
-            const sibIdx   = siblings.indexOf(el);
-            el.style.transitionDelay = `${Math.min(sibIdx * 0.08, 0.3)}s`;
-            revealObserver.observe(el);
-        });
-
-        // ── Image reveal animations ───────────────────────
-        const imgRevealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    imgRevealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-        document.querySelectorAll('.img-reveal, .gallery-item').forEach(el => {
-            imgRevealObserver.observe(el);
-        });
-
-        // ── Service card stagger reveal ────────────────────
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        const svcObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity  = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    svcObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.08 });
-
-        if (!prefersReducedMotion) {
-            document.querySelectorAll('.svc-card').forEach((card, i) => {
-                card.style.opacity   = '0';
-                card.style.transform = 'translateY(18px)';
-                card.style.transition = `opacity 0.5s ease ${i * 0.05}s, transform 0.5s ease ${i * 0.05}s`;
-                svcObserver.observe(card);
-            });
-        }
-
-        // ── Active nav link on scroll ──────────────────────
-        const navLinks = document.querySelectorAll('#main-nav .nav-link');
-
-        const activeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.id;
-                    navLinks.forEach(link => {
-                        const href = link.getAttribute('href');
-                        const isActive = href === `#${id}` || (id === 'hero' && href === '#');
-                        link.classList.toggle('active', isActive);
-                    });
-                }
-            });
-        }, { threshold: 0.4 });
-
-        document.querySelectorAll('section[id]').forEach(s => activeObserver.observe(s));
-
-        // ── Gallery Lightbox ───────────────────────────────
-        const lightbox     = document.getElementById('lightbox');
-        const lightboxImg  = document.getElementById('lightbox-img');
-        const lightboxClose = document.getElementById('lightbox-close');
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const src = item.getAttribute('data-src');
-                const alt = item.querySelector('img') ? item.querySelector('img').getAttribute('alt') : '';
-                lightboxImg.src = src;
-                lightboxImg.alt = alt;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-            // Brief delay before clearing src to allow fade-out
-            setTimeout(() => { lightboxImg.src = ''; }, 300);
-        }
-
-        lightboxClose.addEventListener('click', closeLightbox);
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && lightbox.classList.contains('active')) closeLightbox();
-        });
-    </script>
+    <script src="main.js"></script>
 
 </body>
 </html>
